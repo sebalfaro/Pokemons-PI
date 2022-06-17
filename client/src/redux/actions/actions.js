@@ -4,8 +4,7 @@ export const GET_POKEMONS = 'GET_POKEMONS'
 export const SORT_BY_NAME = 'SORT_BY_NAME'
 export const SORT_BY_ATTACK = 'SORT_BY_ATTACK'
 export const SORT_BY_CREATION = 'SORT_BY_CREATION'
-export const GET_POKEMON_BY_ID = 'GET_POKEMON_BY_ID'
-export const GET_POKEMON_BY_NAME = 'GET_POKEMON_BY_NAME' 
+export const RESET_ORDER = 'RESET_ORDER'
 export const GET_TYPES = 'GET_TYPES'
 export const POST_POKEMONS = 'POST_POKEMONS'
 
@@ -60,10 +59,17 @@ export const sortbyAttack = (order)=>{
     payload: order
   }
 }
+
 export const sortByCreation = (order)=>{
-  console.log(order)
   return {
     type: SORT_BY_CREATION,
     payload: order
+  }
+}
+
+export const resetOrder = ()=>{
+  console.log('RESET')
+  return {
+    type: RESET_ORDER,
   }
 }

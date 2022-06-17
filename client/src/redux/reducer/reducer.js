@@ -1,5 +1,5 @@
 import { ASCENDING, CREATED } from "../../constants/sort";
-import { GET_POKEMONS, GET_TYPES, POST_POKEMONS, SORT_BY_NAME, SORT_BY_ATTACK, SORT_BY_CREATION } from "../actions/actions";
+import { GET_POKEMONS, GET_TYPES, POST_POKEMONS, SORT_BY_NAME, SORT_BY_ATTACK, SORT_BY_CREATION, RESET_ORDER } from "../actions/actions";
 
 const initialState = {
   pokemons: [],
@@ -10,7 +10,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) =>{
 
-  const { type, payload} = action;
+  const { type, payload = true} = action;
  
 
   switch (type) {
@@ -66,10 +66,17 @@ const rootReducer = (state = initialState, action) =>{
       } else {
         orderByCreation = state.pokemons.filter(pokemon => pokemon.created === false)
       }
-      console.log(orderByCreation);
+
       return {
         ...state,
         filteredPokemons: orderByCreation
+      }
+
+    case RESET_ORDER:
+
+      return {
+        ...state,
+        filteredPokemons: state.pokemons
       }
 
     case GET_TYPES:
