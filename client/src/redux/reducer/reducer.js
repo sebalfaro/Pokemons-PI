@@ -1,8 +1,9 @@
-import { GET_ALL_POKEMONS, GET_POKEMON_BY_ID, GET_POKEMON_BY_NAME, GET_TYPES, POST_POKEMONS } from "../actions/actions";
+import { ASCENDING, CREATED } from "../../constants/sort";
+import { GET_POKEMONS, GET_TYPES, POST_POKEMONS, SORT_BY_NAME, SORT_BY_ATTACK, SORT_BY_CREATION } from "../actions/actions";
 
 const initialState = {
   pokemons: [],
-  pokemon: {},
+  filteredPokemons: [],
   types: [],
   form: {}
 }
@@ -14,20 +15,57 @@ const rootReducer = (state = initialState, action) =>{
 
   switch (type) {
     
-    case GET_ALL_POKEMONS:
+    case GET_POKEMONS:
       return {
         ...state,
-        pokemons: state.countries.length !== 250 ? payload : state.countries
+        filteredPokemons: payload,
+        pokemons: payload,
       }
-    case GET_POKEMON_BY_ID:
-      return{
+    
+    case SORT_BY_NAME:
+
+      let orderByNamePokemons = [...state.pokemons]
+      orderByNamePokemons = orderByNamePokemons.sort((a, b)=>{
+        if (a.name < b.name) {
+          return payload === ASCENDING ? -1 : 1;
+        }
+        if (a.name > b.name) {
+          return payload === ASCENDING ? 1 : -1;
+        }
+
+        return 0;
+      })
+
+      return {
         ...state,
-        pokemon: payload
+        filteredPokemons: orderByNamePokemons
       }
-    case GET_POKEMON_BY_NAME:
-      return{
+
+    case SORT_BY_ATTACK:
+
+      let orderByAttack = [...state.pokemons]
+      orderByAttack = orderByAttack.sort((a, b) =>{
+        if(payload === ASCENDING){
+          return a.attack - b.attack;
+        } else {
+          return b.attack - a.attack;
+        }
+      })
+
+      return {
         ...state,
-        pokemon: payload
+        filteredPokemons: orderByAttack
+      }
+
+    case SORT_BY_CREATION: 
+
+      let orderByCreation = []
+
+      if(payload === CREATED){
+        orderByCreation = state.pokemons.filter()
+      }
+      return{
+
       }
 
     case GET_TYPES:

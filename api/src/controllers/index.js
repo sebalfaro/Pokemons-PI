@@ -119,7 +119,8 @@ const getAllPokemonsByName = async(name)=>{
     const pokemon = await selectPokemon('name', name)
     if(pokemon.length === 0){
       const data = await getPokemon(url)
-      return data;
+      pokemon.push(data)
+      return pokemon;
     }
 
     return pokemon
@@ -137,7 +138,9 @@ const getPokemonById = async(id)=>{
 
   try {
     if(idNumber <= 1500){
-      const pokemon = await getPokemon(url)
+      const pokemon = []
+      const data = await getPokemon(url)
+      pokemon.push(data)
       return pokemon;
     }
     const pokemon = await selectPokemon('id', id)

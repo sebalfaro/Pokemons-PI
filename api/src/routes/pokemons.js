@@ -15,7 +15,8 @@ router.get('/', async function(req, res, next){
       const pokemon = await getAllPokemonsByName(name)
       return res.status(201).send(pokemon);
     } catch (error) {
-      res.status(400).send(error);
+      next(error)
+      // res.status(400).send(error);
     }
   }
 
@@ -23,7 +24,8 @@ router.get('/', async function(req, res, next){
     const response = await getAllPokemons()
     return res.status(201).send(response);
   } catch (error) {
-    res.status(400).send(error);
+    next(error)
+    // res.status(400).send(error);
   }
 })
 
