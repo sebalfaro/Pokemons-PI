@@ -48,7 +48,6 @@ export const getPokemonByName = (name)=>{
 }
 
 export const sortbyName = (order)=>{
-  console.log(order)
   return {
     type: SORT_BY_NAME,
     payload: order
@@ -56,7 +55,6 @@ export const sortbyName = (order)=>{
 }
 
 export const sortbyAttack = (order)=>{
-  console.log(order)
   return {
     type: SORT_BY_ATTACK,
     payload: order

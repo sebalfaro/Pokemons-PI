@@ -62,10 +62,14 @@ const rootReducer = (state = initialState, action) =>{
       let orderByCreation = []
 
       if(payload === CREATED){
-        orderByCreation = state.pokemons.filter()
+        orderByCreation = state.pokemons.filter(pokemon => pokemon.created === true)
+      } else {
+        orderByCreation = state.pokemons.filter(pokemon => pokemon.created === false)
       }
-      return{
-
+      console.log(orderByCreation);
+      return {
+        ...state,
+        filteredPokemons: orderByCreation
       }
 
     case GET_TYPES:

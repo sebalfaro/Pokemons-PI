@@ -44,6 +44,7 @@ const getPokemon = async(url)=>{
         };
         return type;
       }),
+      created: false,
     };
     return pokemon;
 }
