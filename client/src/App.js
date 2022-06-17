@@ -9,7 +9,13 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>Henry Pokemon</h1>
+      <Switch>
+        <Route exact path={"/"} component={Home} />
+        <Route exact path={"/pokemons"} component={Pokemons} />
+        <Route exact path={"/pokemons/:idPokemons"} component={PokemonDetail} />
+        <Route exact path={"/creation"} component={Creation} />
+        <Route exact path={'*'} component={Error404} />
+      </Switch>
     </div>
   );
 }
