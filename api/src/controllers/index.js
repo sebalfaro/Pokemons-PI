@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { Pokemons, Types } = require('../db');
 
-const getTypes = async()=>{
+const getTypesAPI = async()=>{
   const responseApi = await axios.get('https://pokeapi.co/api/v2/type')
   const data = responseApi.data.results;
   const types = data.map(async (t)=>{
@@ -24,15 +24,8 @@ const getUrls = (array, secondArray)=>{
   })
 }
 
-const getPokemonsApi = async()=>{
-  const urls = []
-  const get = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=40')
-  const results = get.data.results;
-
-  getUrls(results, urls)
-
-  const pokemons = urls.map(async (url)=>{
-    const secondGet = await axios.get(url)
+const getPokemon = async(url)=>{
+  const secondGet = await axios.get(url)
     const data = secondGet.data
     const pokemon = {
       id: data.id,
@@ -53,11 +46,44 @@ const getPokemonsApi = async()=>{
       }),
     };
     return pokemon;
-  })
-
-  const result = await Promise.all(pokemons)
-  return result
 }
+
+const selectPokemon = async(key, value)=>{
+  const pokemon = await Pokemons.findAll({
+    where: { [key]: value },
+    include: {
+      model: Types,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+  return pokemon
+}
+
+
+const getPokemonsApi = async()=>{
+  const urls = []
+
+  try {
+    const get = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=40')
+    const results = get.data.results;
+  
+    getUrls(results, urls)
+
+    const pokemons = urls.map(async (url)=>{
+      const pokemon = await getPokemon(url)
+      return pokemon
+    })
+    const result = await Promise.all(pokemons);
+    return result;
+  } catch (error) {
+    throw error
+  }
+
+}
+
 
 const getPokemonsDB = async ()=>{
   try {
@@ -72,9 +98,11 @@ const getPokemonsDB = async ()=>{
     })
     return pokemonsDb
   } catch (error) {
-    console.log(error)
+    throw error
   }
 }
+
+
 
 const getAllPokemons = async()=>{
   const firstResponse = await getPokemonsApi()
@@ -83,50 +111,40 @@ const getAllPokemons = async()=>{
   return responseAll
 }
 
+
+
 const getAllPokemonsByName = async(name)=>{
+  const url = `https://pokeapi.co/api/v2/pokemon/${name}`
   try {
-    const pokemon = await Pokemons.findAll({ where: { name: name } })
+    const pokemon = await selectPokemon('name', name)
+    if(pokemon.length === 0){
+      const data = await getPokemon(url)
+      return data;
+    }
+
     return pokemon
   } catch (error) {
-    console.log(error);
+    throw (`The pokemon doesn't exist`)
   }
 
 }
 
+
 const getPokemonById = async(id)=>{
 
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`
+  const idNumber = parseInt(id)
+
   try {
-    if(typeof(id) === 'string'){
-      console.log(id)
-      // const get = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      // const data = get.data
-      // const pokemon = {
-      //   id: data.id,
-      //   name: data.name,
-      //   hp: data.stats[0].base_stat,
-      //   attack: data.stats[1].base_stat,
-      //   defense: data.stats[2].base_stat,
-      //   speed: data.stats[5].base_stat,
-      //   height: data.height,
-      //   weight: data.weight,
-      //   img: data.sprites.other.home.front_default,
-      //   types: data.types.map((el) => {
-      //     const type = {
-      //       id: Number(el.type.url.split("/")[6]),
-      //       type: el.type.name,
-      //     };
-      //     return type;
-      //   }),
-      // };
-      // return pokemon;
+    if(idNumber <= 1500){
+      const pokemon = await getPokemon(url)
+      return pokemon;
     }
-    // const pokemon = await Pokemons.findByPk(id)
-    // if(!pokemon){
-    //   console.log('ACAAAAAAAAAAAAA');
-    // }
-    // return pokemon
+    const pokemon = await selectPokemon('id', id)
+
+    return pokemon
   } catch (error) {
-    console.log(error);
+    throw new Error(`The ID doesn't exist`)
   }
 
 }
@@ -161,7 +179,7 @@ const postPokemon = async (body)=>{
 
 
 module.exports = {
-  getTypes,
+  getTypesAPI,
   getAllPokemons,
   postPokemon,
   getPokemonById,
