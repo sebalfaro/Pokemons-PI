@@ -15,14 +15,14 @@ const PokemonsSlider = () => {
     dispatch(getAllPokemons())
   }, []);
   
-  // console.log(pokemons)
+  console.log(pokemons)
   
   return (
     <section>
       {
         pokemons.length > 0
           ?pokemons.map(({ img, name, types, id}) => {
-              return <PokemonCard img={img} name={name} types={types} key={id} />;
+              return <PokemonCard img={img} name={name} types={types} key={id} id={id}/>;
             })
           : <p>Loading...</p>
       }
