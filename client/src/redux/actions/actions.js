@@ -5,19 +5,10 @@ export const SORT_BY_NAME = 'SORT_BY_NAME'
 export const SORT_BY_ATTACK = 'SORT_BY_ATTACK'
 export const SORT_BY_CREATION = 'SORT_BY_CREATION'
 export const RESET_ORDER = 'RESET_ORDER'
+export const GET_POKEMON_BY_ID = 'GET_POKEMON_BY_ID'
 export const GET_TYPES = 'GET_TYPES'
 export const POST_POKEMONS = 'POST_POKEMONS'
 
-// export const getAllPokemons = () => {
-//   return async function (dispatch) {
-//     return (fetch('http://localhost:3001/pokemons')
-//     .then(response => response.json())
-//     .then(json => dispatch({type:GET_ALL_POKEMONS, payload: json})))
-//     .catch((error)=>{
-//       console.log(error);
-//     })
-//   };
-// };
 
 export const getAllPokemons = ()=>{
   return function (dispatch){
@@ -68,8 +59,19 @@ export const sortByCreation = (order)=>{
 }
 
 export const resetOrder = ()=>{
-  console.log('RESET')
   return {
     type: RESET_ORDER,
   }
+}
+
+export const getPokemonByID = (id)=>{
+
+  return async function (dispatch) {
+    return (fetch(`http://localhost:3001/pokemons/${id}`)
+    .then(response => response.json())
+    .then(json => dispatch({type: GET_POKEMON_BY_ID , payload: json})))
+    .catch((error)=>{
+      console.log(error);
+    })
+  };
 }
