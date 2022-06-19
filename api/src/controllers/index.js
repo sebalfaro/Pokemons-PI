@@ -8,7 +8,7 @@ const getTypesAPI = async()=>{
     const [type, create] = await Types.findOrCreate({
       where: {
         id: Number(t.url.split('/')[6]),
-        name: t.name
+        type: t.name
       }
     })
     return type
@@ -54,7 +54,7 @@ const selectPokemon = async(key, value)=>{
     where: { [key]: value },
     include: {
       model: Types,
-      attributes: ["name"],
+      attributes: ["type"],
       through: {
         attributes: [],
       },
@@ -91,7 +91,7 @@ const getPokemonsDB = async ()=>{
     const pokemonsDb = await Pokemons.findAll({
       include: {
         model: Types,
-        attributes: ["name"],
+        attributes: ["type"],
         through: {
           attributes: [],
         },
@@ -135,20 +135,17 @@ const getAllPokemonsByName = async(name)=>{
 const getPokemonById = async(id)=>{
 
   const url = `https://pokeapi.co/api/v2/pokemon/${id}`
-  const idNumber = parseInt(id)
+  let pokemon
 
   try {
-    if(idNumber <= 1500){
-      const pokemon = []
-      const data = await getPokemon(url)
-      pokemon.push(data)
-      return pokemon;
+    if (typeof id === 'string' && id.length > 6) {
+      pokemon = await Pokemons.findByPk(id)
+      return pokemon
     }
-    const pokemon = await selectPokemon('id', id)
-
-    return pokemon
+    pokemon = await getPokemon(url);
+    return pokemon;
   } catch (error) {
-    throw new Error(`The ID doesn't exist`)
+    throw ({error: "The ID doesn't exist"})
   }
 
 }
@@ -171,7 +168,7 @@ const postPokemon = async (body)=>{
   types.map(async (el) =>{
     const typeFind = await Types.findOne({
       where: {
-        name: el.name
+        type: el.name
       }
     })
     newPokemon.addTypes(typeFind)

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addPokemon, deleteAddedPokemons, getTypes, postPokemon } from "../../redux/actions/actions";
 import { validate } from "../../tools/validate";
+import axios from "axios";
 
 const AddForm = () => {
 
@@ -9,9 +10,7 @@ const AddForm = () => {
   let pokemonsAdded = useSelector((state)=> state.pokemonsAdded)
 
   const [pokemon, setPokemon] = useState({ types: []})
-  const [type, setType] = useState([])
   const [error, setError] = useState([])
-  const [checked, setChecked] = useState({})
 
   const dispatch = useDispatch()
   
@@ -28,6 +27,7 @@ const AddForm = () => {
 
 
   const onInput = (e)=>{
+    console.log(e.target.name);
     e.preventDefault()
     validate(e.target.name, e.target.value, setError)
     setPokemon({
@@ -37,10 +37,9 @@ const AddForm = () => {
   }
 
   const onInputTypes = (e)=>{
-    // console.log(e);
 
     if(e.target.checked === false){
-      const stateFiltered = pokemon.types.filter(el => el.name !== e.target.value)
+      const stateFiltered = pokemon.types.filter(el => el.type !== e.target.value)
       console.log('types filtardo: ', stateFiltered);
       setPokemon({
         ...pokemon,
@@ -54,31 +53,35 @@ const AddForm = () => {
     }
     validate(e.target.name, true, setError, pokemon.types)
   }
-
+ 
   const saveHandler =(e)=>{
     e.preventDefault()
     dispatch(addPokemon(pokemon))
-    setPokemon({})
+    setPokemon({ types: []})
     e.target.form.reset()
   }
 
   const deleteHandler =(e)=>{
     e.target.form.reset();
     dispatch(deleteAddedPokemons())
-    setPokemon({})
+    setPokemon({ types: []})
     setError({})
   }
 
   const resetHandler =(e)=>{
     e.target.form.reset();
-    setPokemon({})
+    setPokemon({ types: []})
     setError({})
   }
 
   const onSubmit = (e)=>{
-    if(!error.length){
-      if(!pokemonsAdded.length){
+    
+    if(error.length === 0){
+      if(!pokemonsAdded.length === 0){
         dispatch(postPokemon(pokemon))
+      } else {
+        dispatch(postPokemon(pokemon))
+        pokemonsAdded.map(el => dispatch(postPokemon(el)))
       }
     }
   }  
@@ -128,15 +131,15 @@ const AddForm = () => {
           <br />
 
           {
-            types?.map(({ name, index }) =>{
+            types?.map(({ type, index }) =>{
               return (
                 <div key={index}>
-                  <label htmlFor={name} key={index}>
-                    {name}
+                  <label htmlFor={type} key={index}>
+                    {type}
                     <input
                       name="checkbox"
                       type="checkbox"
-                      value={name}
+                      value={type}
                       onChange={onInputTypes}
                       key={index}
                     />

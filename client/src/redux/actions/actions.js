@@ -72,7 +72,8 @@ export const getPokemonByID = (id)=>{
     .then(response => response.json())
     .then(json => dispatch({type: GET_POKEMON_BY_ID , payload: json})))
     .catch((error)=>{
-      console.log(error);
+      // throw error
+      console.log('error en action',error);
     })
   };
 }
@@ -83,7 +84,7 @@ export const getTypes = ()=>{
     .then(response => response.json())
     .then(json => dispatch({type: GET_TYPES , payload: json})))
     .catch((error)=>{
-      console.log(error);
+      throw error
     })
   };
 }
@@ -102,8 +103,13 @@ export const deleteAddedPokemons = ()=>{
 }
 
 export const postPokemon = (data)=>{
+  
   return async function (dispatch) {
-    const response = await axios.post(`http://localhost:3001/pokemons`, data);
-    return response;
+    try {
+      const response = axios.post(`http://localhost:3001/pokemons`, data);
+      return response;
+    } catch (error) {
+      throw error
+    }
   };
 }

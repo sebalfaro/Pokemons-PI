@@ -8,17 +8,22 @@ const PokemonDetails = (props) => {
 
   const { idPokemon } = useParams()
   const dispatch = useDispatch()
-  let pokemon = useSelector((state)=> state.pokemon[0])
+  let pokemon = useSelector((state)=> state.pokemon)
+  
 
   useEffect(() => {
     dispatch(getPokemonByID(idPokemon))
   }, []);
-  console.log(pokemon);
 
   return (
     <div>
       <h1>Pokemon Details</h1>
-      <PokemonDetailCard {...pokemon}/>
+      {
+        pokemon.error
+          ? <p>{pokemon.error}</p>
+          : <PokemonDetailCard {...pokemon}/>
+      }
+      
     </div>
   );
 };

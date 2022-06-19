@@ -2,9 +2,9 @@ import React from "react";
 import { TypeCard } from "../TypeCard/TypeCard";
 
 const PokemonDetailCard = (props) => {
-  console.log(props);
+  console.log('response', props);
   const { id, name, hp, attack, defense, speed, height, weight, img, types } = props
-  console.log(types);
+
 
   return (
     <div>

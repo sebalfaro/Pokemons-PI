@@ -10,7 +10,7 @@ export const validate = (inputType, value, setError, types)=>{
       if(!name.test(value)){
         setError(errorTypes[0])
       } else{
-        setError({})
+        setError([])
       }
       break;
 
@@ -18,7 +18,7 @@ export const validate = (inputType, value, setError, types)=>{
       if(!number.test(value)){
         setError(errorTypes[1])
       } else{
-        setError({})
+        setError([])
       }
       break;
 
@@ -26,7 +26,7 @@ export const validate = (inputType, value, setError, types)=>{
       if(!number.test(value)){
         setError(errorTypes[2])
       } else{
-        setError({})
+        setError([])
       }
       break;
 
@@ -34,7 +34,7 @@ export const validate = (inputType, value, setError, types)=>{
       if(!number.test(value)){
         setError(errorTypes[3])
       } else{
-        setError({})
+        setError([])
       }
       break;
 
@@ -42,7 +42,7 @@ export const validate = (inputType, value, setError, types)=>{
       if(!number.test(value)){
         setError(errorTypes[4])
       } else{
-        setError({})
+        setError([])
       }
       break;
 
@@ -50,7 +50,7 @@ export const validate = (inputType, value, setError, types)=>{
       if(!number.test(value)){
         setError(errorTypes[5])
       } else{
-        setError({})
+        setError([])
       }
       break;
       
@@ -58,7 +58,7 @@ export const validate = (inputType, value, setError, types)=>{
       if(!number.test(value)){
         setError(errorTypes[6])
       } else{
-        setError({})
+        setError([])
       }
       break;
 
@@ -66,7 +66,7 @@ export const validate = (inputType, value, setError, types)=>{
       if(!img.test(value)){
         setError(errorTypes[7])
       } else{
-        setError({})
+        setError([])
       }
       break;
 
@@ -76,12 +76,12 @@ export const validate = (inputType, value, setError, types)=>{
         // console.log('validate: ', pokemon);
         setError(errorTypes[8])
       } else{
-        setError({})
+        setError([])
       }
       break;
 
     default:
-      setError({});
+      setError([]);
   }
 
 }
