@@ -1,11 +1,11 @@
 import { ASCENDING, CREATED } from "../../constants/sort";
-import { GET_POKEMONS, GET_TYPES, POST_POKEMONS, SORT_BY_NAME, SORT_BY_ATTACK, SORT_BY_CREATION, RESET_ORDER, GET_POKEMON_BY_ID } from "../actions/actions";
+import { GET_POKEMONS, GET_TYPES, SORT_BY_NAME, SORT_BY_ATTACK, SORT_BY_CREATION, RESET_ORDER, GET_POKEMON_BY_ID, ADD_POKEMONS, DELETE_ADDED_POKEMONS } from "../actions/actions";
 
 const initialState = {
   pokemons: [],
   filteredPokemons: [],
   types: [],
-  form: {},
+  pokemonsAdded: [],
   pokemon: []
 }
 
@@ -88,11 +88,23 @@ const rootReducer = (state = initialState, action) =>{
       }
     
     case GET_TYPES:
-      return 
+      return{
+        ...state,
+        types: payload
+      }
 
-    case POST_POKEMONS:
-      return 
-  
+    case ADD_POKEMONS:
+      return{
+        ...state,
+        pokemonsAdded: [...state.pokemonsAdded, payload]
+      }
+    
+    case DELETE_ADDED_POKEMONS:
+      return{
+        ...state,
+        pokemonsAdded: []
+      }
+    
     default:
       return state;
   }

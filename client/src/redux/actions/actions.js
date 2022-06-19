@@ -7,7 +7,8 @@ export const SORT_BY_CREATION = 'SORT_BY_CREATION'
 export const RESET_ORDER = 'RESET_ORDER'
 export const GET_POKEMON_BY_ID = 'GET_POKEMON_BY_ID'
 export const GET_TYPES = 'GET_TYPES'
-export const POST_POKEMONS = 'POST_POKEMONS'
+export const ADD_POKEMONS = 'ADD_POKEMONS'
+export const DELETE_ADDED_POKEMONS = 'DELETE_ADDED_POKEMONS'
 
 
 export const getAllPokemons = ()=>{
@@ -73,5 +74,36 @@ export const getPokemonByID = (id)=>{
     .catch((error)=>{
       console.log(error);
     })
+  };
+}
+export const getTypes = ()=>{
+
+  return async function (dispatch) {
+    return (fetch(`http://localhost:3001/types`)
+    .then(response => response.json())
+    .then(json => dispatch({type: GET_TYPES , payload: json})))
+    .catch((error)=>{
+      console.log(error);
+    })
+  };
+}
+
+export const addPokemon = (data)=>{
+  return {
+    type: ADD_POKEMONS,
+    payload: data
+  }
+}
+
+export const deleteAddedPokemons = ()=>{
+  return {
+    type: DELETE_ADDED_POKEMONS
+  }
+}
+
+export const postPokemon = (data)=>{
+  return async function (dispatch) {
+    const response = await axios.post(`http://localhost:3001/pokemons`, data);
+    return response;
   };
 }

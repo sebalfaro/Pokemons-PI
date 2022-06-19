@@ -171,7 +171,7 @@ const postPokemon = async (body)=>{
   types.map(async (el) =>{
     const typeFind = await Types.findOne({
       where: {
-        name: el.type
+        name: el.name
       }
     })
     newPokemon.addTypes(typeFind)

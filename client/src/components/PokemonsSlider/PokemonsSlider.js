@@ -4,8 +4,6 @@ import { useEffect } from "react";
 import { getAllPokemons } from "../../redux/actions/actions";
 import PokemonCard from "../PokemonCard/PokemonCard";
 
-
-
 const PokemonsSlider = () => {
 
   const dispatch = useDispatch()
