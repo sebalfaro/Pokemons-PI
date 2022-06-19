@@ -1,5 +1,7 @@
 import React from "react";
 import { TypeCard } from "../TypeCard/TypeCard";
+import './PokemonDetailCard.modules.css'
+
 
 const PokemonDetailCard = (props) => {
   console.log('response', props);
@@ -7,9 +9,11 @@ const PokemonDetailCard = (props) => {
 
 
   return (
-    <div>
+    <div className="box">
       <h3>Pokemon info</h3>
-      <img src={img} alt={`${name}_img`} />
+      <div className="img-box">
+        <img src={img} alt={`${name}_img`} />
+      </div>
       <h4>{name}</h4>
       <p>HP: {hp}</p>
       <p>ID: {id}</p>
@@ -18,9 +22,10 @@ const PokemonDetailCard = (props) => {
       <p>Speed: {speed}</p>
       <p>Height: {height}</p>
       <p>Weight: {weight}</p>
-      {
-        types && types.map(({ id, type }) => {return <TypeCard key={id} type={type} /> })
-      }
+      {types &&
+        types.map(({ id, type }) => {
+          return <TypeCard key={id} type={type} />;
+        })}
     </div>
   );
 };

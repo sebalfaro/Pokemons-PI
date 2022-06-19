@@ -25,28 +25,28 @@ const getUrls = (array, secondArray)=>{
 }
 
 const getPokemon = async(url)=>{
-  const secondGet = await axios.get(url)
-    const data = secondGet.data
-    const pokemon = {
-      id: data.id,
-      name: data.name,
-      hp: data.stats[0].base_stat,
-      attack: data.stats[1].base_stat,
-      defense: data.stats[2].base_stat,
-      speed: data.stats[5].base_stat,
-      height: data.height,
-      weight: data.weight,
-      img: data.sprites.other.home.front_default,
-      types: data.types.map((el) => {
-        const type = {
-          id: Number(el.type.url.split("/")[6]),
-          type: el.type.name,
-        };
-        return type;
-      }),
-      created: false,
-    };
-    return pokemon;
+  const getPokemonData = await axios.get(url)
+  const data = getPokemonData.data
+  const pokemon = {
+    id: data.id,
+    name: data.name,
+    hp: data.stats[0].base_stat,
+    attack: data.stats[1].base_stat,
+    defense: data.stats[2].base_stat,
+    speed: data.stats[5].base_stat,
+    height: data.height,
+    weight: data.weight,
+    img: data.sprites.other.home.front_default,
+    types: data.types.map((el) => {
+      const type = {
+        id: Number(el.type.url.split("/")[6]),
+        type: el.type.name,
+      };
+      return type;
+    }),
+    created: false,
+  };
+  return pokemon
 }
 
 const selectPokemon = async(key, value)=>{
@@ -62,6 +62,8 @@ const selectPokemon = async(key, value)=>{
   });
   return pokemon
 }
+
+
 
 const getAllPokemons = async()=>{
   

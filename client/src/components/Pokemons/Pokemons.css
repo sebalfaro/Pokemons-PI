@@ -1,0 +1,22 @@
+.pokemons_main{
+  display: flex;
+  flex-direction: column;
+}
+.pokemons_main_logo{
+  position: absolute;
+  background-color: rgba(84, 70, 164, 0.586);
+  width: auto;
+  margin-left: 50px;
+}
+
+.pokemons_main_slider{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  position: absolute;
+  width: 100vw;
+  height: 83vh;
+  /* background-color: black; */
+  bottom: 0;
+}

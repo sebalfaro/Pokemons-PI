@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemonByName } from "../../redux/actions/actions";
+import './SearchBar.css'
 
 const SearchBar = () => {
 
@@ -19,12 +20,13 @@ const SearchBar = () => {
   }
 
   return (
-    <div>
+    <nav className="searchbar_box">
+    
       <form onSubmit={onSubmit}>
         <input type="text" onChange={onInputChange} value={search} />
         <input type="submit" value="Buscar" />
       </form>
-    </div>
+    </nav>
   );
 };
 

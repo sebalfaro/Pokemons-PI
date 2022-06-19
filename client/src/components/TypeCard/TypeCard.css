@@ -1,0 +1,10 @@
+.typecard_box{
+  background-color: rgba(119, 146, 208, 0.686);
+  width: fit-content;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.typecard_box p{
+  margin: 5px 10px;
+}
