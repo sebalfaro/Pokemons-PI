@@ -1,6 +1,10 @@
 .filtermenu_box{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   width: 13%;
-  height: 50%;
+  height: 53%;
   margin-top: 100px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

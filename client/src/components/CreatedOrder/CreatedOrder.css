@@ -1,0 +1,17 @@
+.createdorder_box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+.createdorder_box_label{
+  display: block;
+}
+
+.createdorder_box_select {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}

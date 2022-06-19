@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import AddedPokemonsCard from "../AddedPokemonsCard/AddedPokemonsCard";
 import AddForm from "../AddForm/AddForm";
+import './AddPokemon.css'
 
 const AddPokemon = () => {
 

@@ -8,7 +8,7 @@ import './FilterMenu.css'
 const FilterMenu = () => {
   return (
     <section className="filtermenu_box">
-      <h2>FilterMenu</h2>
+      <h2>Filter Pokemons</h2>
       <div className="filtermenu_options">
         <AlphaOrder />
         <AttackOrder />

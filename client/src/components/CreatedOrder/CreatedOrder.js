@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { ORIGINAL, CREATED } from "../../constants/sort";
 import { sortByCreation } from "../../redux/actions/actions";
-
+import "./CreatedOrder.css"
 
 const CreatedOrder = () => {
 
@@ -13,11 +13,11 @@ const CreatedOrder = () => {
   }
 
   return ( 
-    <div>
-      <label htmlFor="select">Created by User</label>
-      <select name="select" onChange={onChangeSelect}>
-        <option value={CREATED}>Created by User</option>
+    <div className="createdorder_box">
+      <label className="createdorder_box_label" htmlFor="select">Created by User</label>
+      <select className="createdorder_box_select" name="select" onChange={onChangeSelect}>
         <option value={ORIGINAL}>Original</option>
+        <option value={CREATED}>Created by User</option>
       </select>
     </div>
   );
