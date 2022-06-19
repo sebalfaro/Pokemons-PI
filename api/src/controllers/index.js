@@ -63,31 +63,37 @@ const selectPokemon = async(key, value)=>{
   return pokemon
 }
 
-
-const getPokemonsApi = async()=>{
-  const urls = []
-
-  try {
-    const get = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=40')
-    const results = get.data.results;
+const getAllPokemons = async()=>{
   
-    getUrls(results, urls)
+  try {
+    const getUrlsApi = await axios.get('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40')
+    const results = getUrlsApi.data.results
+    const urls = results.map(el => el.url)
+    const pokemonsApi = urls.map(async(el)=>{
 
-    const pokemons = urls.map(async (url)=>{
-      const pokemon = await getPokemon(url)
+      const getPokemonData = await axios.get(el)
+      const data = getPokemonData.data
+      const pokemon = {
+        id: data.id,
+        name: data.name,
+        hp: data.stats[0].base_stat,
+        attack: data.stats[1].base_stat,
+        defense: data.stats[2].base_stat,
+        speed: data.stats[5].base_stat,
+        height: data.height,
+        weight: data.weight,
+        img: data.sprites.other.home.front_default,
+        types: data.types.map((el) => {
+          const type = {
+            id: Number(el.type.url.split("/")[6]),
+            type: el.type.name,
+          };
+          return type;
+        }),
+        created: false,
+      };
       return pokemon
     })
-    const result = await Promise.all(pokemons);
-    return result;
-  } catch (error) {
-    throw error
-  }
-
-}
-
-
-const getPokemonsDB = async ()=>{
-  try {
     const pokemonsDb = await Pokemons.findAll({
       include: {
         model: Types,
@@ -97,19 +103,15 @@ const getPokemonsDB = async ()=>{
         },
       }
     })
-    return pokemonsDb
+
+    const response = await Promise.allSettled([...pokemonsApi, ...pokemonsDb])
+    
+    const allPokemons = response.map(el => el.value)
+    return allPokemons
+
   } catch (error) {
     throw error
   }
-}
-
-
-
-const getAllPokemons = async()=>{
-  const firstResponse = await getPokemonsApi()
-  const secondResponse = await getPokemonsDB()
-  const responseAll = [...firstResponse, ...secondResponse] 
-  return responseAll
 }
 
 
@@ -126,7 +128,7 @@ const getAllPokemonsByName = async(name)=>{
 
     return pokemon
   } catch (error) {
-    throw (`The pokemon doesn't exist`)
+    throw ({error: "The ID doesn't exist"})
   }
 
 }
@@ -139,7 +141,15 @@ const getPokemonById = async(id)=>{
 
   try {
     if (typeof id === 'string' && id.length > 6) {
-      pokemon = await Pokemons.findByPk(id)
+      pokemon = await Pokemons.findByPk(id, {
+        include: {
+          model: Types,
+          attributes: ["type"],
+          through: {
+            attributes: [],
+          },
+        }
+      })
       return pokemon
     }
     pokemon = await getPokemon(url);
