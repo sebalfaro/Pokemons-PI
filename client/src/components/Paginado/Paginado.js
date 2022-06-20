@@ -14,11 +14,13 @@ const Paginado = ({ pokemonsPerPage, allPokemons, paginado }) => {
       <ul className="paginado_ul">
         { pageNumber && pageNumber.map(number =>{
           return (
-            <div className="number_box" key={'div'+number}>
-              <li className="number" key={number}>
-                <a onClick={() => paginado(number)}>{number}</a>
-              </li>
-            </div>
+            <a className="number_link" onClick={() => paginado(number)}>
+              <div className="number_box" key={"div" + number}>
+                <li className="number" key={number}>
+                  {number}
+                </li>
+              </div>
+            </a>
           );
         })} 
       </ul>

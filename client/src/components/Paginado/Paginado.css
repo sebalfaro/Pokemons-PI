@@ -1,7 +1,8 @@
 .paginado_box{
   display: flex;
   flex-direction: row;
-  height: auto;
+  align-items: center;
+  height: 40px;
   width: fit-content;
 } 
 
@@ -22,7 +23,8 @@
   border-radius: 20px;
   height: 30px;
   width: 30px;
-  background-color: rgba(187, 187, 200, 0.582);
+  background-color: rgba(135, 135, 189, 0.709);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow: hidden;
 }
 
@@ -30,4 +32,16 @@
   list-style: none;
   color: blanchedalmond;
   margin-bottom: 3px;
+}
+
+.number_link {
+  font-weight: bolder;
+}
+
+.number_link:hover {
+  cursor: pointer;
+}
+
+.number_box:hover{
+  background-color: rgba(80, 80, 159, 0.709);
 }
