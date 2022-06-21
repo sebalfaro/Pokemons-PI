@@ -25,7 +25,14 @@ const rootReducer = (state = initialState, action) =>{
     case SORT_BY_NAME:
 
       let orderByNamePokemons = [...state.pokemons]
-      orderByNamePokemons = orderByNamePokemons.sort((a, b)=>{
+      let orderByNamePokemonsNormalized = orderByNamePokemons.map(pokemon =>{
+        return {
+          ...pokemon, 
+          name: pokemon.name.toLowerCase()
+        }
+      })
+      console.log('ordered: ', orderByNamePokemonsNormalized);
+      orderByNamePokemons = orderByNamePokemonsNormalized.sort((a, b)=>{
         if (a.name < b.name) {
           return payload === ASCENDING ? -1 : 1;
         }

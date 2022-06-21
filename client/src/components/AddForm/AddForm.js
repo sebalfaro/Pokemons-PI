@@ -79,9 +79,11 @@ const AddForm = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   let display = pokemonsAdded.length ||  Object.keys(pokemon).length === 9 ? false : true
-  let allDonde = Object.keys(error).length === 0 && Object.keys(pokemon) === 9 && pokemon.types.length > 0 ? true : false 
+  let allDone = Object.keys(error).length === 0 && Object.keys(pokemon).length === 9 && pokemon.types.length > 0 ? true : false 
 
-  // console.log('pokemons added', pokemonsAdded);
+  console.log('errors ', error);
+  console.log('pokemon ', pokemon);
+  console.log('Done ', allDone);
 
   useEffect(() => {
     dispatch(getTypes())
@@ -102,7 +104,7 @@ const AddForm = () => {
  
   const saveHandler =(e)=>{
     e.preventDefault()
-    if(allDonde){
+    if(allDone){
       dispatch(addPokemon(pokemon))
       setPokemon(pokemonTemplate)
       e.target.form.reset()
@@ -124,7 +126,7 @@ const AddForm = () => {
 
   const onSubmit = (e)=>{
     
-    if(Object.keys(error).length === 0 && Object.keys(pokemon) === 9 && pokemon.types.length > 0){
+    if(allDone){
       
       if(pokemonsAdded.length === 0){
         dispatch(postPokemon(pokemon))

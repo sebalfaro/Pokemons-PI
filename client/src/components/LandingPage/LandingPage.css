@@ -78,16 +78,22 @@
 }
 
 .landing_button a {
+  margin-top: 3px;
   text-decoration: none;
   color: white;
   font-size: 30px;
 }
 
 .landing_button:hover{
-  position: relative;
-  bottom:   3px;
-  color: rgb(213, 197, 197);
+  /* position: relative;
+  bottom:   3px; */
+  color: rgb(222, 177, 177);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.landing_button a:hover{
+  color: rgb(222, 145, 145);
+  /* box-shadow:rgba(0, 0, 0, 0.35) 0px 5px 15px ; */
 }
 
 .landing_logo{
