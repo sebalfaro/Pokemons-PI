@@ -50,6 +50,18 @@ const validateTest = (input,)=>{
 
 const AddForm = () => {
 
+  const pokemonTemplate = { 
+    name: '',
+    hp: '',
+    attack: '',
+    defense: '',
+    speed: '',
+    height: '',
+    weight: '',
+    img: '',
+    types: []
+  }
+
   let types = useSelector((state)=> state.types)
   let pokemonsAdded = useSelector((state)=> state.pokemonsAdded)
   const [pokemon, setPokemon] = useState({ 
@@ -65,8 +77,10 @@ const AddForm = () => {
   })
   const [error, setError] = useState([])
   const dispatch = useDispatch()
-
+  const history = useHistory()
   let display = pokemonsAdded.length ||  Object.keys(pokemon).length > 0 ? false : true
+
+  console.log('pokemons added', pokemonsAdded);
 
   useEffect(() => {
     dispatch(getTypes())
@@ -88,21 +102,19 @@ const AddForm = () => {
   const saveHandler =(e)=>{
     e.preventDefault()
     dispatch(addPokemon(pokemon))
-    setPokemon({ types: []})
+    setPokemon(pokemonTemplate)
     e.target.form.reset()
   }
 
   const deleteHandler =(e)=>{
     e.target.form.reset();
     dispatch(deleteAddedPokemons())
-    setPokemon({ types: []})
-    setError({})
+    setPokemon(pokemonTemplate)
   }
 
   const resetHandler =(e)=>{
     e.target.form.reset();
-    setPokemon({ types: []})
-    setError({})
+    setPokemon(pokemonTemplate)
   }
 
   const onSubmit = (e)=>{
@@ -111,9 +123,11 @@ const AddForm = () => {
       if(pokemonsAdded.length === 0){
         dispatch(postPokemon(pokemon))
         alert("Your pokemon have been created succesfully");
-        
+        history.push('/pokemons')
       } else {
-        dispatch(postPokemon(pokemon))
+        if(Object.keys(pokemon) === 9){
+          dispatch(postPokemon(pokemon))
+        }
         pokemonsAdded.map(el => dispatch(postPokemon(el)))
         alert("Your pokemons have been created succesfully");
       }
@@ -153,7 +167,6 @@ const AddForm = () => {
                 type="text"
                 value={pokemon.name}
                 onChange={inputHandler}
-                required
               />
               {error.name && <p>{error.name}</p>}
             </div>
@@ -165,7 +178,6 @@ const AddForm = () => {
                 type="text"
                 value={pokemon.hp}
                 onChange={inputHandler}
-                requiredk
               />
               {error.hp && <p>{error.hp}</p>}
             </div>
@@ -177,7 +189,6 @@ const AddForm = () => {
                 type="text"
                 value={pokemon.attack}
                 onChange={inputHandler}
-                required
               />
               {error.attack && <p>{error.attack}</p>}
             </div>
@@ -189,7 +200,6 @@ const AddForm = () => {
                 type="text"
                 value={pokemon.defense}
                 onChange={inputHandler}
-                required
               />
               {error.defense && <p>{error.defense}</p>}
             </div>
@@ -201,7 +211,6 @@ const AddForm = () => {
                 type="text"
                 value={pokemon.speed}
                 onChange={inputHandler}
-                required
               />
               {error.speed && <p>{error.speed}</p>}
             </div>
@@ -213,7 +222,6 @@ const AddForm = () => {
                 type="text"
                 value={pokemon.height}
                 onChange={inputHandler}
-                required
               />
               {error.height && <p>{error.height}</p>}
             </div>
@@ -225,7 +233,6 @@ const AddForm = () => {
                 type="text"
                 value={pokemon.weight}
                 onChange={inputHandler}
-                required
               />
               {error.weight && <p>{error.weight}</p>}
             </div>
@@ -237,7 +244,6 @@ const AddForm = () => {
               type="text"
               value={pokemon.img}
               onChange={inputHandler}
-              required
             />
             {error.img && <p>{error.img}</p>}
             </div>
@@ -274,7 +280,9 @@ const AddForm = () => {
         </div>
 
         <div className="addform_buttons_box">
-          <br />
+          <div className="buttons_text">
+          <h3>Options</h3>
+          </div>
           <input
             type="button"
             onClick={saveHandler}
