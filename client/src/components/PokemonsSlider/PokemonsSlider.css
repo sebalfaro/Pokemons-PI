@@ -1,9 +1,10 @@
 .pokemonslider_box {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   width: 85%;
   height: 100%;
+  /* background-color: black ; */
 }
 
 .pokemonslider_page{

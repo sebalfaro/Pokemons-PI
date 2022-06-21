@@ -71,9 +71,7 @@ export const validate = (inputType, value, setError, types)=>{
       break;
 
     case 'checkbox':
-      console.log('validate: ', types);
       if(types > 1 ){
-        // console.log('validate: ', pokemon);
         setError(errorTypes[8])
       } else{
         setError([])

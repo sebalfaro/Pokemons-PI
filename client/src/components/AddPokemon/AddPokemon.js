@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import AddedPokemonsCard from "../AddedPokemonsCard/AddedPokemonsCard";
 import AddForm from "../AddForm/AddForm";
+import Logo from "../Logo/Logo";
 import './AddPokemon.css'
 
 const AddPokemon = () => {
@@ -9,12 +10,22 @@ const AddPokemon = () => {
   let pokemonsAdded = useSelector((state)=> state.pokemonsAdded)
 
   return (
-    <main>
+    <main className="addpokemon_box" >
+      <Logo />
       <h1>Add Pokemon</h1>
-      <AddForm />
-      {
-        pokemonsAdded?.map(pokemon => <AddedPokemonsCard {...pokemon} key={pokemon.name}/>)
-      }
+      <section className="addpokemon_section_box">
+        <AddForm />
+        <div className="addpokemon_addedbox">
+          {
+            pokemonsAdded.length > 0
+              ? <div className="addpokemon_added_title"><h1>Pokemons Added Queue</h1></div>
+              : null
+          }
+          {pokemonsAdded?.map((pokemon) => (
+            <AddedPokemonsCard {...pokemon} key={"added_" + pokemon.name} />
+          ))}
+        </div>
+      </section>
     </main>
   );
 };

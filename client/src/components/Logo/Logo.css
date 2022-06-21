@@ -1,0 +1,10 @@
+.logo {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  /* background-color: rgba(84, 70, 164, 0.586); */
+  width: 220px;
+  height: 80px;
+  margin-left: 20px;
+  margin-top: 5px;
+}

@@ -24,6 +24,7 @@ const PokemonsSlider = () => {
   useEffect(() => {
     dispatch(getAllPokemons())
   }, []);
+
   
   
   return (
@@ -31,8 +32,13 @@ const PokemonsSlider = () => {
       <div className='pokemonslider_page'>
       {
         pokemons.length > 0
-          ?currentPokemons.map(({ img, name, types, id}) => {
-              return <PokemonCard img={img} name={name} types={types} key={id} id={id}/>;
+          ?currentPokemons.map((el) => {
+              if(!el){
+                console.log('un pokemon es null')
+                return null
+              } else {
+                return <PokemonCard img={el.img} name={el.name} types={el.types} key={el.id} id={el.id}/>;
+              }
             })
           : <p>Loading...</p>
       }

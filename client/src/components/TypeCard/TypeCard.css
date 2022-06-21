@@ -1,10 +1,20 @@
 .typecard_box{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: space-around;
   background-color: rgba(119, 146, 208, 0.686);
   width: fit-content;
-  margin-left: 5px;
+  height: 30px;
+  padding: 0 8px;
+  margin-right: 5px;
   border-radius: 5px;
 }
 
-.typecard_box p{
+.typecard_box_text{
+  text-indent: 0;
+  padding: 0;
   margin: 5px 10px;
+  /* padding: 0 10px; */
 }
