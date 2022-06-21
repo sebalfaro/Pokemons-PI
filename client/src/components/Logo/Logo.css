@@ -1,4 +1,5 @@
-.logo {
+.logo_small {
+  padding: 0;
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -7,4 +8,23 @@
   height: 80px;
   margin-left: 20px;
   margin-top: 5px;
+}
+
+.logo_small:hover{
+  margin-top: 2px;
+}
+
+.logo_big {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width: 800px;
+  height: 400px;
+  /* background-color: rgba(84, 70, 164, 0.586); */
+}
+
+.logo_big:hover{
+  margin-bottom: 3px;
 }

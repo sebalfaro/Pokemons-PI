@@ -8,7 +8,6 @@ const { response } = require('express');
 
 router.get('/', async function(req, res, next){
 
-
   const name = req.query.name;
 
   if(name){

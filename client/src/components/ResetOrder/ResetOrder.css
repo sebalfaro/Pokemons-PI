@@ -1,3 +1,18 @@
 .resetorder_button{
   margin-top: 5px;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+  color: rgb(249, 249, 249);
+  font-weight: bolder;
+  background-color: rgb(50, 41, 113);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.resetorder_button:hover{
+  position: relative;
+  bottom: 2px;
+  background-color: rgb(40, 87, 87);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addPokemon, deleteAddedPokemons, getTypes, postPokemon } from "../../redux/actions/actions";
@@ -18,14 +19,15 @@ const AddForm = () => {
 
   // console.log('error: ', error);
   // console.log('pokemon: ', pokemon);
-
+  // console.log('keys: ' + Object.keys(pokemon).length );
+  // console.log('types ' + pokemon.types.length);
 
   useEffect(() => {
     dispatch(getTypes())
   }, []);
 
   const inputHandler = (e)=>{
-    console.log(e.target.name);
+    // console.log(e.target.name);
     e.preventDefault()
     validate(e.target.name, e.target.value, setError)
     setPokemon({
@@ -55,11 +57,16 @@ const AddForm = () => {
   }
 
   const onSubmit = (e)=>{
-    
+
+    if(Object.keys(pokemon).length < 9 && pokemon.types.length < 1){
+      console.log('Error');
+    }
+
     if(error.length === 0){
-      if(!pokemonsAdded.length === 0){
+      if(pokemonsAdded.length === 0){
         dispatch(postPokemon(pokemon))
       } else {
+        // console.log('Entro aca;  ');
         dispatch(postPokemon(pokemon))
         pokemonsAdded.map(el => dispatch(postPokemon(el)))
       }
@@ -193,7 +200,7 @@ const AddForm = () => {
             <div className="addform_types_box_cases">
             {types?.map(({ type, index }) => {
               return (
-                <div className="addform_type_box_case" key={"div" + index + type}>
+                <div className="addform_type_box_case" key={`div_${index}_${type}`}>
                   <label htmlFor={type} key={"label" + index}>
                     {type}
                     <input
@@ -247,6 +254,7 @@ const AddForm = () => {
             />
           )}
         </div>
+        
       </form>
     </div>
   );

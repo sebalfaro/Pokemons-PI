@@ -9,5 +9,12 @@
   margin-left: 20px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: rgba(227, 227, 227, 0.978);
+}
+
+.filtermenu_box h2 {
+  margin: 3px;
+  margin-top: 10px;
+  color: rgb(54, 50, 50);
 }
 

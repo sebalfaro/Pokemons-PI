@@ -1,12 +1,13 @@
 import * as React from "react"
 
-const PokemonLogo = (props) => (
+
+const PokemonLogo = ({width = 220, height = 80}) => (
   <svg
     id="Layer_1"
     viewBox="0 0 269.5 98.8"
-    width="220"
-    height="80"
-    {...props}
+    width={width}
+    height={height}
+    // {...props} 
   >
     <style>
       {

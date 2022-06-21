@@ -1,9 +1,10 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
-import { getAllPokemons } from "../../redux/actions/actions";
+import { getAllPokemons, resetOrder } from "../../redux/actions/actions";
 import PokemonCard from "../PokemonCard/PokemonCard";
 import Paginado from '../Paginado/Paginado';
+import Spinner from '../Spinner/Spinner';
 import './PokemonsSlider.css'
 
 const PokemonsSlider = () => {
@@ -24,8 +25,6 @@ const PokemonsSlider = () => {
   useEffect(() => {
     dispatch(getAllPokemons())
   }, []);
-
-  
   
   return (
     <section className='pokemonslider_box'>
@@ -40,7 +39,7 @@ const PokemonsSlider = () => {
                 return <PokemonCard img={el.img} name={el.name} types={el.types} key={el.id} id={el.id}/>;
               }
             })
-          : <p>Loading...</p>
+          : <Spinner /> 
       }
       </div>
       <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado}/>

@@ -1,9 +1,10 @@
 .searchbar_box{
+  position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-
+  
   border-radius: 10px;
   width: 700px;
   height: 45px;
@@ -54,13 +55,13 @@
   border-radius: 3px;
   width: fit-content;
   margin-left: 11px;
-  /* font-size: 20px; */
   color: white;
-  background-color: rgb(223, 223, 223);
+  background-color: rgb(50, 41, 113);
+  padding: 0 10px;
 }
 
 .searchbar_form_submit:hover{
-  background-color: rgb(134, 118, 118)
+  background-color: rgb(40, 87, 87);
 }
 
 .searchbar_link {
@@ -68,15 +69,17 @@
   flex-direction: column;
   align-items: center;
   /* background-color: black; */
+  margin-bottom: 5px;
   height: 25px; 
 }
 
 .searchbar_link a{
+  font-size: 20px;
   color: white;
   text-decoration: none;
 }
 
 .searchbar_link a:hover{
-  color: rgb(170, 49, 49);
+  color: rgb(163, 163, 163);
 
 }

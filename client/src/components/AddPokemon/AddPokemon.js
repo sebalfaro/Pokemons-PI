@@ -11,7 +11,7 @@ const AddPokemon = () => {
 
   return (
     <main className="addpokemon_box" >
-      <Logo />
+      <Logo size='small'/>
       <h1>Add Pokemon</h1>
       <section className="addpokemon_section_box">
         <AddForm />

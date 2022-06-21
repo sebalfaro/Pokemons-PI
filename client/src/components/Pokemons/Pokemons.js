@@ -9,7 +9,7 @@ const Pokemons = () => {
 
   return (
     <main className="pokemons_main">
-      <Logo />
+      <Logo size='small'/>
       <SearchBar />
       <section className="pokemons_main_slider">
         <FilterMenu />

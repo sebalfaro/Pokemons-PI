@@ -1,5 +1,4 @@
 import React from "react";
-import { TypeCard } from "../TypeCard/TypeCard";
 import './AddedPokemonsCard.css'
 
 const AddedPokemonsCard = ({name, img, hp, id, attack, defense, speed, height, weight, types}) => {

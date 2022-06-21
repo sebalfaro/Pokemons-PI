@@ -18,12 +18,6 @@ const getTypesAPI = async()=>{
 }
 
 
-const getUrls = (array, secondArray)=>{
-  array.map(({ url })=>{
-    secondArray.push(url)
-  })
-}
-
 const getPokemon = async(url)=>{
   const getPokemonData = await axios.get(url)
   const data = getPokemonData.data
@@ -48,21 +42,6 @@ const getPokemon = async(url)=>{
   };
   return pokemon
 }
-
-const selectPokemon = async(key, value)=>{
-  const pokemon = await Pokemons.findAll({
-    where: { [key]: value },
-    include: {
-      model: Types,
-      attributes: ["type"],
-      through: {
-        attributes: [],
-      },
-    },
-  });
-  return pokemon
-}
-
 
 
 const getAllPokemons = async()=>{
@@ -119,9 +98,21 @@ const getAllPokemons = async()=>{
 
 
 const getAllPokemonsByName = async(name)=>{
+
+
   const url = `https://pokeapi.co/api/v2/pokemon/${name}`
   try {
-    const pokemon = await selectPokemon('name', name)
+    const pokemon = await Pokemons.findAll({
+      where: { name : name },
+      include: {
+        model: Types,
+        attributes: ["type"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+
     if(pokemon.length === 0){
       const data = await getPokemon(url)
       pokemon.push(data)
@@ -130,7 +121,7 @@ const getAllPokemonsByName = async(name)=>{
 
     return pokemon
   } catch (error) {
-    throw ({error: "The ID doesn't exist"})
+    throw ({error: "The pokemon doesn't exist"})
   }
 
 }
@@ -162,6 +153,7 @@ const getPokemonById = async(id)=>{
 
 }
 
+
 const postPokemon = async (body)=>{
   const { name, hp, attack, defense, speed, height, weight, img, types} = body;
   const altImg = 'https://static.wikia.nocookie.net/0fc723e7-ed4c-4bd0-bd9f-4ae537ee6acd/scale-to-width/755';
@@ -180,7 +172,7 @@ const postPokemon = async (body)=>{
   types.map(async (el) =>{
     const typeFind = await Types.findOne({
       where: {
-        type: el.name
+        type: el.type
       }
     })
     newPokemon.addTypes(typeFind)
@@ -188,8 +180,6 @@ const postPokemon = async (body)=>{
 
   return newPokemon
 }
-
-
 
 module.exports = {
   getTypesAPI,

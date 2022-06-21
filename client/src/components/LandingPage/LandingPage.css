@@ -1,0 +1,108 @@
+
+.landing_main {
+  width: 100vw;
+  height: 100vh;
+  /* background-color: rgb(198, 32, 32); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: linear-gradient(
+  45deg,
+  hsl(240deg 100% 20%) 0%,
+  hsl(289deg 100% 21%) 11%,
+  hsl(315deg 100% 27%) 22%,
+  hsl(329deg 100% 36%) 33%,
+  hsl(337deg 100% 43%) 44%,
+  hsl(357deg 91% 59%) 56%,
+  hsl(17deg 100% 59%) 67%,
+  hsl(34deg 100% 53%) 78%,
+  hsl(45deg 100% 50%) 89%,
+  hsl(55deg 100% 50%) 100%
+);
+}
+
+.landing_info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 800px;
+  height: 100px;
+  /* background-color: #0A285F; */
+}
+
+.landing_info p{
+  font-size: 20px;
+}
+
+.landing_button{
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  width: 150px;
+  height: 50px;
+  border-radius: 15px;
+  background-color: #0A285F;
+  animation-name: colors;
+  animation-duration: 15s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes colors {
+
+  15%{
+    background-color:#0075BE;
+  }
+
+  30%{
+    background-color:#D5A100;
+  }
+
+  45%{
+    background-color: #FFCC00;
+  }
+
+  60%{
+    background-color:#D5A100;
+  }
+  
+  75%{
+    background-color:#0075BE;
+  }
+
+  90%{
+    background-color: #0A285F;
+  }
+}
+
+.landing_button a {
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+}
+
+.landing_button:hover{
+  position: relative;
+  bottom:   3px;
+  color: rgb(213, 197, 197);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.landing_logo{
+  padding: 0;
+  margin-top: 130px;
+  display: flex;
+  position: relative;
+  margin-right: 40px;
+  width: 800px;
+  height: 400px;
+  overflow: hidden;
+  /* background-color: red; */
+}
+
+.landing_logo:hover{
+  position: relative;
+  bottom: 3px;
+}

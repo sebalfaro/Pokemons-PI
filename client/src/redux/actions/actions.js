@@ -5,16 +5,20 @@ export const SORT_BY_NAME = 'SORT_BY_NAME'
 export const SORT_BY_ATTACK = 'SORT_BY_ATTACK'
 export const SORT_BY_CREATION = 'SORT_BY_CREATION'
 export const RESET_ORDER = 'RESET_ORDER'
-// export const GET_POKEMON_BY_ID = 'GET_POKEMON_BY_ID'
 export const GET_TYPES = 'GET_TYPES'
 export const ADD_POKEMONS = 'ADD_POKEMONS'
 export const DELETE_ADDED_POKEMONS = 'DELETE_ADDED_POKEMONS'
 
 
 export const getAllPokemons = ()=>{
+  console.log('getAll dispachado');
   return async function (dispatch) {
     return (fetch('http://localhost:3001/pokemons')
     .then(response => response.json())
+    .then(json =>{
+      let filterPokemons = json.filter(e => e !== null)
+      return filterPokemons
+    })
     .then(json => dispatch({type:GET_POKEMONS, payload: json})))
     .catch((error)=>{
       console.log(error);
@@ -100,9 +104,9 @@ export const deleteAddedPokemons = ()=>{
 
 export const postPokemon = (data)=>{
   
-  return async function (dispatch) {
+  return async function () {
     try {
-      const response = axios.post(`http://localhost:3001/pokemons`, data);
+      const response = axios.post(`http://localhost:3001/pokemons`, data)
       return response;
     } catch (error) {
       throw error
