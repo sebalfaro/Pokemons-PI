@@ -134,6 +134,7 @@ const AddForm = () => {
         }
         pokemonsAdded.map(el => dispatch(postPokemon(el)))
         alert("Your pokemons have been created succesfully");
+        history.push('/pokemons')
       }
     } else{
       e.preventDefault()
