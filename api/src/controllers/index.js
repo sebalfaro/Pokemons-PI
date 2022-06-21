@@ -8,7 +8,7 @@ const getTypesAPI = async()=>{
     const [type, create] = await Types.findOrCreate({
       where: {
         id: Number(t.url.split('/')[6]),
-        name: t.name
+        type: t.name
       }
     })
     return type
@@ -18,86 +18,78 @@ const getTypesAPI = async()=>{
 }
 
 
-const getUrls = (array, secondArray)=>{
-  array.map(({ url })=>{
-    secondArray.push(url)
-  })
-}
-
 const getPokemon = async(url)=>{
-  const secondGet = await axios.get(url)
-    const data = secondGet.data
-    const pokemon = {
-      id: data.id,
-      name: data.name,
-      hp: data.stats[0].base_stat,
-      attack: data.stats[1].base_stat,
-      defense: data.stats[2].base_stat,
-      speed: data.stats[5].base_stat,
-      height: data.height,
-      weight: data.weight,
-      img: data.sprites.other.home.front_default,
-      types: data.types.map((el) => {
-        const type = {
-          id: Number(el.type.url.split("/")[6]),
-          type: el.type.name,
-        };
-        return type;
-      }),
-      created: false,
-    };
-    return pokemon;
-}
-
-const selectPokemon = async(key, value)=>{
-  const pokemon = await Pokemons.findAll({
-    where: { [key]: value },
-    include: {
-      model: Types,
-      attributes: ["name"],
-      through: {
-        attributes: [],
-      },
-    },
-  });
+  const getPokemonData = await axios.get(url)
+  const data = getPokemonData.data
+  const pokemon = {
+    id: data.id,
+    name: data.name,
+    hp: data.stats[0].base_stat,
+    attack: data.stats[1].base_stat,
+    defense: data.stats[2].base_stat,
+    speed: data.stats[5].base_stat,
+    height: data.height,
+    weight: data.weight,
+    img: data.sprites.other.home.front_default,
+    types: data.types.map((el) => {
+      const type = {
+        id: Number(el.type.url.split("/")[6]),
+        type: el.type.name,
+      };
+      return type;
+    }),
+    created: false,
+  };
   return pokemon
 }
 
 
-const getPokemonsApi = async()=>{
-  const urls = []
-
-  try {
-    const get = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=40')
-    const results = get.data.results;
+const getAllPokemons = async()=>{
   
-    getUrls(results, urls)
+  try {
+    const getUrlsApi = await axios.get('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40')
+    const results = getUrlsApi.data.results
+    const urls = results.map(el => el.url)
+    const pokemonsApi = urls.map(async(el)=>{
 
-    const pokemons = urls.map(async (url)=>{
-      const pokemon = await getPokemon(url)
+      const getPokemonData = await axios.get(el)
+      const data = getPokemonData.data
+      const pokemon = {
+        id: data.id,
+        name: data.name,
+        hp: data.stats[0].base_stat,
+        attack: data.stats[1].base_stat,
+        defense: data.stats[2].base_stat,
+        speed: data.stats[5].base_stat,
+        height: data.height,
+        weight: data.weight,
+        img: data.sprites.other.home.front_default,
+        types: data.types.map((el) => {
+          const type = {
+            id: Number(el.type.url.split("/")[6]),
+            type: el.type.name,
+          };
+          return type;
+        }),
+        created: false,
+      };
       return pokemon
     })
-    const result = await Promise.all(pokemons);
-    return result;
-  } catch (error) {
-    throw error
-  }
-
-}
-
-
-const getPokemonsDB = async ()=>{
-  try {
     const pokemonsDb = await Pokemons.findAll({
       include: {
         model: Types,
-        attributes: ["name"],
+        attributes: ["type"],
         through: {
           attributes: [],
         },
       }
     })
-    return pokemonsDb
+
+    const response = await Promise.allSettled([...pokemonsApi, ...pokemonsDb])
+    
+    const allPokemons = response.map(el => el.value)
+    return allPokemons
+
   } catch (error) {
     throw error
   }
@@ -105,19 +97,22 @@ const getPokemonsDB = async ()=>{
 
 
 
-const getAllPokemons = async()=>{
-  const firstResponse = await getPokemonsApi()
-  const secondResponse = await getPokemonsDB()
-  const responseAll = [...firstResponse, ...secondResponse] 
-  return responseAll
-}
-
-
-
 const getAllPokemonsByName = async(name)=>{
+
+
   const url = `https://pokeapi.co/api/v2/pokemon/${name}`
   try {
-    const pokemon = await selectPokemon('name', name)
+    const pokemon = await Pokemons.findAll({
+      where: { name : name },
+      include: {
+        model: Types,
+        attributes: ["type"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+
     if(pokemon.length === 0){
       const data = await getPokemon(url)
       pokemon.push(data)
@@ -126,7 +121,7 @@ const getAllPokemonsByName = async(name)=>{
 
     return pokemon
   } catch (error) {
-    throw (`The pokemon doesn't exist`)
+    throw ({error: "The pokemon doesn't exist"})
   }
 
 }
@@ -135,23 +130,29 @@ const getAllPokemonsByName = async(name)=>{
 const getPokemonById = async(id)=>{
 
   const url = `https://pokeapi.co/api/v2/pokemon/${id}`
-  const idNumber = parseInt(id)
+  let pokemon
 
   try {
-    if(idNumber <= 1500){
-      const pokemon = []
-      const data = await getPokemon(url)
-      pokemon.push(data)
-      return pokemon;
+    if (typeof id === 'string' && id.length > 6) {
+      pokemon = await Pokemons.findByPk(id, {
+        include: {
+          model: Types,
+          attributes: ["type"],
+          through: {
+            attributes: [],
+          },
+        }
+      })
+      return pokemon
     }
-    const pokemon = await selectPokemon('id', id)
-
-    return pokemon
+    pokemon = await getPokemon(url);
+    return pokemon;
   } catch (error) {
-    throw new Error(`The ID doesn't exist`)
+    throw ({error: "The ID doesn't exist"})
   }
 
 }
+
 
 const postPokemon = async (body)=>{
   const { name, hp, attack, defense, speed, height, weight, img, types} = body;
@@ -171,7 +172,7 @@ const postPokemon = async (body)=>{
   types.map(async (el) =>{
     const typeFind = await Types.findOne({
       where: {
-        name: el.type
+        type: el.type
       }
     })
     newPokemon.addTypes(typeFind)
@@ -179,8 +180,6 @@ const postPokemon = async (body)=>{
 
   return newPokemon
 }
-
-
 
 module.exports = {
   getTypesAPI,

@@ -2,15 +2,19 @@ import React from "react";
 import SearchBar from "../SearchBar/SearchBar"
 import PokemonsSlider from "../PokemonsSlider/PokemonsSlider";
 import FilterMenu from "../FilterMenu/FilterMenu";
+import Logo from "../Logo/Logo";
+import './Pokemons.css'
 
 const Pokemons = () => {
 
   return (
-    <main>
-      <h1>Pokemons</h1>
+    <main className="pokemons_main">
+      <Logo size='small'/>
       <SearchBar />
-      <FilterMenu />
-      <PokemonsSlider />
+      <section className="pokemons_main_slider">
+        <FilterMenu />
+        <PokemonsSlider />
+      </section>
     </main>
   );
 };

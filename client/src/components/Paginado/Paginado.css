@@ -1,0 +1,48 @@
+.paginado_box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40px;
+  width: fit-content;
+  margin-right: 20px;
+} 
+
+.paginado_ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: auto;
+  width: 150px;
+  padding: 0;
+}
+
+.number_box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  height: 30px;
+  width: 30px;
+  background-color: rgba(135, 135, 189, 0.709);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  overflow: hidden;
+}
+
+.number{
+  list-style: none;
+  color: blanchedalmond;
+  margin-bottom: 3px;
+}
+
+.number_link {
+  font-weight: bolder;
+}
+
+.number_link:hover {
+  cursor: pointer;
+}
+
+.number_box:hover{
+  background-color: rgba(80, 80, 159, 0.709);
+}

@@ -15,18 +15,18 @@ router.get('/', async function(req, res, next){
       const pokemon = await getAllPokemonsByName(name)
       return res.status(201).send(pokemon);
     } catch (error) {
-      next(error)
-      // res.status(400).send(error);
+      res.status(400).send(error);
+    }
+  }else{
+    try {
+      const response = await getAllPokemons();
+      return res.status(201).send(response);
+    } catch (error) {
+      // next(error)
+      res.status(400).send(error);
     }
   }
-
-  try {
-    const response = await getAllPokemons()
-    return res.status(201).send(response);
-  } catch (error) {
-    next(error)
-    // res.status(400).send(error);
-  }
+  
 })
 
 
@@ -49,7 +49,8 @@ router.post('/', async function(req, res, next){
     const newPokemon = await postPokemon(body) 
     return res.status(201).send(newPokemon);
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(400).send(error);
   }
 })
 

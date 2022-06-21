@@ -1,0 +1,18 @@
+.alphaorder_box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  margin-bottom: 0px;
+}
+
+.alphaorder_box_label{
+  display: block;
+  margin-top: 5px;
+}
+
+.alphaorder_select {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}

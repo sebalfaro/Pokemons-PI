@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { resetOrder } from "../../redux/actions/actions";
+import './ResetOrder.css'
 
 const ResetOrder = () => {
 
@@ -10,7 +11,7 @@ const ResetOrder = () => {
   }
 
   return (
-    <button onClick={onClickButton}>Reset Order</button>
+    <button className="resetorder_button" onClick={onClickButton}>Reset Order</button>
   );
 };
 

@@ -1,31 +1,48 @@
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from "react";
-import { getAllPokemons } from "../../redux/actions/actions";
+import { useEffect, useState } from "react";
+import { getAllPokemons, resetOrder } from "../../redux/actions/actions";
 import PokemonCard from "../PokemonCard/PokemonCard";
-
-
+import Paginado from '../Paginado/Paginado';
+import Spinner from '../Spinner/Spinner';
+import './PokemonsSlider.css'
 
 const PokemonsSlider = () => {
 
   const dispatch = useDispatch()
-  let pokemons = useSelector((state)=> state.filteredPokemons)
+  const pokemons = useSelector((state)=> state.filteredPokemons)
+  const allPokemons = useSelector((state)=> state.filteredPokemons)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pokemonsPerPage, setPokemonsPerPage] = useState(12)
+  const indexOfLastPokemon = currentPage * pokemonsPerPage
+  const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage
+  const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon)
+
+  const paginado = (pageNumber)=>{
+    setCurrentPage(pageNumber)
+  }
 
   useEffect(() => {
     dispatch(getAllPokemons())
   }, []);
   
-  // console.log(pokemons)
-  
   return (
-    <section>
+    <section className='pokemonslider_box'>
+      <div className='pokemonslider_page'>
       {
         pokemons.length > 0
-          ?pokemons.map(({ img, name, types, id}) => {
-              return <PokemonCard img={img} name={name} types={types} key={id} />;
+          ?currentPokemons.map((el) => {
+              if(!el){
+                console.log('un pokemon es null')
+                return null
+              } else {
+                return <PokemonCard img={el.img} name={el.name} types={el.types} key={el.id} id={el.id}/>;
+              }
             })
-          : <p>Loading...</p>
+          : <Spinner /> 
       }
+      </div>
+      <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado}/>
     </section>
   );
 };
