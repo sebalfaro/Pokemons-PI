@@ -19,7 +19,7 @@ const PokemonDetailCard = (props) => {
               <b>HP</b>
               <p>{hp}</p>
               <b>ID</b>
-              <p>{id}</p>
+              <p className="pokemondetailcard_id">{id}</p>
               <b>Attack</b>
               <p>{attack}</p>
               <b>Defense</b>

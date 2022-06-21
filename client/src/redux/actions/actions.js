@@ -17,6 +17,7 @@ export const getAllPokemons = ()=>{
     .then(response => response.json())
     .then(json =>{
       let filterPokemons = json.filter(e => e !== null)
+      console.log('getAll data dispachada ', json);
       return filterPokemons
     })
     .then(json => dispatch({type:GET_POKEMONS, payload: json})))
