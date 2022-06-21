@@ -16,7 +16,7 @@ const PokemonCard = ({img, name, types, id}) => {
           <h4>Types</h4>
           <div className="pokemoncard_types">
             {types.map((type) => {
-              return <TypeCard type={type.type} key={type.id} />;
+              return <TypeCard type={type.type} key={'pkcard_types_' + type.id} />;
             })}
           </div>
         </div>

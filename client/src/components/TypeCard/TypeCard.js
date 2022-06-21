@@ -4,7 +4,7 @@ import './TypeCard.css'
 export const TypeCard = ({ type }) => {
   return (
     <div className="typecard_box">
-      <p>{type}</p>
+      <span>{type}</span>
     </div>
   );
 };

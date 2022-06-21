@@ -3,7 +3,7 @@ import './Paginado.css'
 
 const Paginado = ({ pokemonsPerPage, allPokemons, paginado }) => {
   const pageNumber = []
-  console.log('pagenumber ', pageNumber);
+  // console.log('pagenumber ', pageNumber);
 
   for (let index = 1; index <= Math.ceil(allPokemons/pokemonsPerPage); index++) {
     pageNumber.push(index)

@@ -81,10 +81,6 @@ const AddForm = () => {
   let display = pokemonsAdded.length ||  Object.keys(pokemon).length === 9 ? false : true
   let allDone = Object.keys(error).length === 0 && Object.keys(pokemon).length === 9 && pokemon.types.length > 0 ? true : false 
 
-  console.log('errors ', error);
-  console.log('pokemon ', pokemon);
-  console.log('Done ', allDone);
-
   useEffect(() => {
     dispatch(getTypes())
   }, [dispatch]);
