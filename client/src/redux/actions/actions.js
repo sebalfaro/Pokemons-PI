@@ -11,13 +11,13 @@ export const DELETE_ADDED_POKEMONS = 'DELETE_ADDED_POKEMONS'
 
 
 export const getAllPokemons = ()=>{
-  console.log('getAll dispachado');
+  // console.log('getAll dispachado');
   return async function (dispatch) {
     return (fetch('http://localhost:3001/pokemons')
     .then(response => response.json())
     .then(json =>{
       let filterPokemons = json.filter(e => e !== null)
-      console.log('getAll data dispachada ', json);
+      // console.log('getAll data dispachada ', json);
       return filterPokemons
     })
     .then(json => dispatch({type:GET_POKEMONS, payload: json})))

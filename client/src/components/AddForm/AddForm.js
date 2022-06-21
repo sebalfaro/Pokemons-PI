@@ -78,9 +78,10 @@ const AddForm = () => {
   const [error, setError] = useState([])
   const dispatch = useDispatch()
   const history = useHistory()
-  let display = pokemonsAdded.length ||  Object.keys(pokemon).length > 0 ? false : true
+  let display = pokemonsAdded.length ||  Object.keys(pokemon).length === 9 ? false : true
+  let allDonde = Object.keys(error).length === 0 && Object.keys(pokemon) === 9 && pokemon.types.length > 0 ? true : false 
 
-  console.log('pokemons added', pokemonsAdded);
+  // console.log('pokemons added', pokemonsAdded);
 
   useEffect(() => {
     dispatch(getTypes())
@@ -101,9 +102,13 @@ const AddForm = () => {
  
   const saveHandler =(e)=>{
     e.preventDefault()
-    dispatch(addPokemon(pokemon))
-    setPokemon(pokemonTemplate)
-    e.target.form.reset()
+    if(allDonde){
+      dispatch(addPokemon(pokemon))
+      setPokemon(pokemonTemplate)
+      e.target.form.reset()
+    } else {
+      alert('The pokemon could not be added to the queue')
+    }
   }
 
   const deleteHandler =(e)=>{
@@ -119,7 +124,8 @@ const AddForm = () => {
 
   const onSubmit = (e)=>{
     
-    if(Object.keys(error).length === 0){
+    if(Object.keys(error).length === 0 && Object.keys(pokemon) === 9 && pokemon.types.length > 0){
+      
       if(pokemonsAdded.length === 0){
         dispatch(postPokemon(pokemon))
         alert("Your pokemon have been created succesfully");
@@ -131,6 +137,9 @@ const AddForm = () => {
         pokemonsAdded.map(el => dispatch(postPokemon(el)))
         alert("Your pokemons have been created succesfully");
       }
+    } else{
+      e.preventDefault()
+      alert('the pokemon couldn´t be created, try again!')
     }
   }  
 
