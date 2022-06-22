@@ -1,38 +1,49 @@
 import { ASCENDING, CREATED } from "../../constants/sort";
-import { GET_POKEMONS, GET_TYPES, SORT_BY_NAME, SORT_BY_ATTACK, SORT_BY_CREATION, RESET_ORDER, ADD_POKEMONS, DELETE_ADDED_POKEMONS } from "../actions/actions";
+import {
+  GET_POKEMONS,
+  GET_TYPES,
+  SORT_BY_NAME,
+  SORT_BY_ATTACK,
+  SORT_BY_CREATION,
+  RESET_ORDER,
+  ADD_POKEMONS,
+  DELETE_ADDED_POKEMONS,
+  GET_POKEMON_BY_NAME
+} from "../actions/actions";
 
 const initialState = {
   pokemons: [],
   filteredPokemons: [],
   types: [],
   pokemonsAdded: [],
-}
+};
 
-const rootReducer = (state = initialState, action) =>{
-
-  const { type, payload = true} = action;
- 
+const rootReducer = (state = initialState, action) => {
+  const { type, payload = true } = action;
 
   switch (type) {
-    
     case GET_POKEMONS:
       return {
         ...state,
         filteredPokemons: payload,
         pokemons: payload,
-      }
-    
-    case SORT_BY_NAME:
+      };
 
-      let orderByNamePokemons = [...state.pokemons]
-      let orderByNamePokemonsNormalized = orderByNamePokemons.map(pokemon =>{
+    case GET_POKEMON_BY_NAME:
+      return {
+        ...state,
+        filteredPokemons: payload,
+      };
+
+    case SORT_BY_NAME:
+      let orderByNamePokemons = [...state.pokemons];
+      let orderByNamePokemonsNormalized = orderByNamePokemons.map((pokemon) => {
         return {
-          ...pokemon, 
-          name: pokemon.name.toLowerCase()
-        }
-      })
-      console.log('ordered: ', orderByNamePokemonsNormalized);
-      orderByNamePokemons = orderByNamePokemonsNormalized.sort((a, b)=>{
+          ...pokemon,
+          name: pokemon.name.toLowerCase(),
+        };
+      });
+      orderByNamePokemons = orderByNamePokemonsNormalized.sort((a, b) => {
         if (a.name < b.name) {
           return payload === ASCENDING ? -1 : 1;
         }
@@ -41,73 +52,73 @@ const rootReducer = (state = initialState, action) =>{
         }
 
         return 0;
-      })
+      });
 
       return {
         ...state,
-        filteredPokemons: orderByNamePokemons
-      }
+        filteredPokemons: orderByNamePokemons,
+      };
 
     case SORT_BY_ATTACK:
-
-      let orderByAttack = [...state.pokemons]
-      orderByAttack = orderByAttack.sort((a, b) =>{
-        if(payload === ASCENDING){
+      let orderByAttack = [...state.pokemons];
+      orderByAttack = orderByAttack.sort((a, b) => {
+        if (payload === ASCENDING) {
           return a.attack - b.attack;
         } else {
           return b.attack - a.attack;
         }
-      })
+      });
 
       return {
         ...state,
-        filteredPokemons: orderByAttack
-      }
+        filteredPokemons: orderByAttack,
+      };
 
-    case SORT_BY_CREATION: 
+    case SORT_BY_CREATION:
+      let orderByCreation = [];
 
-      let orderByCreation = []
-
-      if(payload === CREATED){
-        orderByCreation = state.pokemons.filter(pokemon => pokemon.created === true)
+      if (payload === CREATED) {
+        orderByCreation = state.pokemons.filter(
+          (pokemon) => pokemon.created === true
+        );
       } else {
-        orderByCreation = state.pokemons.filter(pokemon => pokemon.created === false)
+        orderByCreation = state.pokemons.filter(
+          (pokemon) => pokemon.created === false
+        );
       }
 
       return {
         ...state,
-        filteredPokemons: orderByCreation
-      }
+        filteredPokemons: orderByCreation,
+      };
 
     case RESET_ORDER:
-
       return {
         ...state,
-        filteredPokemons: state.pokemons
-      }
-    
+        filteredPokemons: state.pokemons,
+      };
+
     case GET_TYPES:
-      return{
+      return {
         ...state,
-        types: payload
-      }
+        types: payload,
+      };
 
     case ADD_POKEMONS:
-      return{
+      return {
         ...state,
-        pokemonsAdded: [...state.pokemonsAdded, payload]
-      }
-    
+        pokemonsAdded: [...state.pokemonsAdded, payload],
+      };
+
     case DELETE_ADDED_POKEMONS:
-      return{
+      return {
         ...state,
-        pokemonsAdded: []
-      }
-    
+        pokemonsAdded: [],
+      };
+
     default:
       return state;
   }
-
-}
+};
 
 export default rootReducer;

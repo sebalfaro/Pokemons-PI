@@ -9,10 +9,10 @@ export const RESET_ORDER = 'RESET_ORDER'
 export const GET_TYPES = 'GET_TYPES'
 export const ADD_POKEMONS = 'ADD_POKEMONS'
 export const DELETE_ADDED_POKEMONS = 'DELETE_ADDED_POKEMONS'
+export const GET_POKEMON_BY_NAME = 'GET_POKEMON_BY_NAME'
 
 
 export const getAllPokemons = ()=>{
-  // console.log('getAll dispachado');
   return async function (dispatch) {
     return (fetch(URL_GET_ALL_POKEMONS)
     .then(response => response.json())
@@ -21,7 +21,7 @@ export const getAllPokemons = ()=>{
       // console.log('getAll data dispachada ', json);
       return filterPokemons
     })
-    .then(json => dispatch({type:GET_POKEMONS, payload: json})))
+    .then(json => dispatch({type:GET_POKEMON_BY_NAME, payload: json})))
     .catch((error)=>{
       throw error
     })
@@ -32,7 +32,7 @@ export const getPokemonByName = (name)=>{
   return async function (dispatch) {
     return (fetch(URL_GET_POKEMON_BY_NAME + name)
     .then(response => response.json())
-    .then(json => dispatch({type:GET_POKEMONS, payload: json})))
+    .then(json => dispatch({type:GET_POKEMON_BY_NAME, payload: json})))
     .catch((error)=>{
       console.log(error);
     })
@@ -69,12 +69,12 @@ export const resetOrder = ()=>{
 // export const getPokemonByID = (id)=>{
 
 //   return async function (dispatch) {
-//     return (fetch(`http://localhost:3001/pokemons/${id}`)
+//     return (fetch(`${URL_GET_POKEMON_BY_ID}` + id)
 //     .then(response => response.json())
 //     .then(json => dispatch({type: GET_POKEMON_BY_ID , payload: json})))
 //     .catch((error)=>{
-//       // throw error
-//       console.log('error en action',error);
+//       throw error
+//       // console.log('error en action',error);
 //     })
 //   };
 // }
