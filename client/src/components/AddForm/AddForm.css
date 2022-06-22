@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 800px;
-  height: 80vh;
+  width: 750px;
+  height: 530px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: rgba(255, 255, 255, 0.564);
   border-radius: 5px;
@@ -36,6 +36,7 @@
   justify-content: space-evenly;
   width: 100%;
   height: 400px;
+  margin-top: 20px;
   /* background-color: rgb(102, 102, 180); */
 }
 
@@ -48,22 +49,23 @@
   align-items: flex-start;
   width: 375px;
   height: 300px;
+  margin-left: 20px;
   /* background-color: aquamarine; */
 }
 
 .addform_data_input_box{
-  /* position: relative; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  /* background-color: red; */
   width: 400px;
   margin-bottom: 5px;
+  /* background-color: red; */
 }
 
 .addform_data_input_box label{
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 15px;
 }
 
 .addform_data_input_box input{
@@ -84,7 +86,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 350px;
+  width: 320px;
   height: 330px;
   /* background-color: rgb(98, 147, 147); */
 }
@@ -116,12 +118,12 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 100px;
-  height: 30px;
+  width: 90px;
+  height: 27px;
   margin-right: 15px;
   margin-top: 10px;
   border-radius: 5px;
-  font-weight: bolder;
+  font-size: 13px;
   background-color: rgb(50, 41, 113);
 }
 
@@ -153,10 +155,8 @@
   align-content: center;
   width: 390px;
   height: 105px;
-  margin-left: 329px;
+  margin-left: 350px;
   border-radius: 5px;
-  background-color: rgb(220, 218, 218);
-  box-shadow: rgba(0, 0, 0, 0.112) 0px 5px 15px;
 }
 
 .buttons_text {
@@ -179,7 +179,7 @@
   border: none;
   background-color: rgb(50, 41, 113);
   color: rgb(241, 241, 241);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .addform_buttons_box input:hover{

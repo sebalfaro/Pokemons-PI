@@ -3,18 +3,23 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 180px;
+  width: 160px;
   height: 330px;
-  margin-top: 100px;
+  margin-top: 90px;
   margin-left: 20px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  background-color: rgba(227, 227, 227, 0.978);
+  background-color: rgba(255, 255, 255, 0.887);
+  color: rgb(49, 49, 49);  
+}
+
+.filtermenu_box:hover{
+  box-shadow: rgba(0, 0, 0, 0.586) 0px 10px 20px;
 }
 
 .filtermenu_box h2 {
-  margin: 3px;
-  margin-top: 10px;
-  color: rgb(54, 50, 50);
+  font-size: 20px;
+  margin: 10px 3px;
+  color: rgb(55, 55, 55);  
 }
 

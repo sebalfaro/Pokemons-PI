@@ -1,8 +1,8 @@
 .pokemoncard_box{
-  height: 250px;
-  width: 200px;
+  height: 230px;
+  width: 180px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  background-color: rgba(255, 255, 255, 0.797);
+  background-color: rgba(255, 255, 255, 0.887);
   border-radius: 5px;
   margin-bottom: 10px;
   margin: 5px;
@@ -13,12 +13,12 @@
 .pokemoncard_box:hover{
   position: relative;
   bottom: 5px;
-  background-color: rgb(241, 241, 241);
+  background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.653) 0px 5px 15px;
 }
 
 .pokemoncard_img-box{
-  height: 130px;
+  height: 120px;
   width: 100%;
   overflow: hidden;
   object-fit: contain;
@@ -41,15 +41,19 @@
 .pokemoncard_data h3{
   margin-top: 5px;
   margin-bottom: 5px;
+  font-size: 17px;
 }
 .pokemoncard_data h4{
+  font-size: 15px;
   display: inline;
   margin-bottom: 10px;
 }
 
 .pokemoncard_types {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 15px;
+  /* background-color: red; */
 }

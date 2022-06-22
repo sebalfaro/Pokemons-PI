@@ -1,6 +1,6 @@
 .addedpokemonscard_box{
   height: 260px;
-  width: 230px;
+  width: 200px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: rgba(255, 255, 255, 0.797);
   border-radius: 5px;
@@ -12,7 +12,7 @@
 }
 
 .addedpokemonscard_box_img_box{
-  height: 130px;
+  height: 110px;
   width: 100%;
   overflow: hidden;
   object-fit: contain;

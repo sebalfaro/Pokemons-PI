@@ -163,7 +163,7 @@ const AddForm = () => {
 
   return (
     <div className="addform_box">
-      <h2>Add Your Pokemon!</h2>
+      {/* <h2>Add Your Pokemon!</h2> */}
       <form onSubmit={onSubmit}>
         <div className="addform_entry_box">
           <div className="addform_data_box">

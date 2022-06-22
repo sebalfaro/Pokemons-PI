@@ -1,9 +1,10 @@
 .pokemonslider_box {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 85%;
-  height: 100%;
+  width: 1150px;
+  height: 530px;
   /* background-color: black ; */
   /* border-radius: 5px; */
   overflow: hidden;
@@ -19,5 +20,6 @@
   height: 90%;
   border-radius: 5px;
   overflow: hidden;
+  /* background-color: aquamarine; */
 }
 

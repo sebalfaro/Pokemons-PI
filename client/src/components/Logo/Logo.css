@@ -17,11 +17,13 @@
 .logo_big {
   margin: 0;
   padding: 0;
-  position: absolute;
+  /* position: absolute; */
   display: flex;
   flex-direction: row;
-  width: 800px;
-  height: 400px;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  height: 250px;
   /* background-color: rgba(84, 70, 164, 0.586); */
 }
 

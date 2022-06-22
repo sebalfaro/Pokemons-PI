@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-end;
   height: 40px;
-  width: fit-content;
-  margin-right: 20px;
+  width: 300px;
+  margin-top: 5px;
 } 
 
 .paginado_ul{
@@ -12,7 +13,6 @@
   flex-direction: row;
   justify-content: space-between;
   height: auto;
-  width: 150px;
   padding: 0;
 }
 
@@ -24,6 +24,7 @@
   border-radius: 20px;
   height: 30px;
   width: 30px;
+  margin: 0 5px;
   background-color: rgba(135, 135, 189, 0.709);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow: hidden;
