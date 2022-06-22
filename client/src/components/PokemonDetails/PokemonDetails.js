@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { URL_GET_POKEMON_BY_ID } from "../../constants/routes";
 import Logo from '../Logo/Logo'
 import PokemonDetailCard from "../PokemonDetailCard/PokemonDetailCard";
 import './PokemonDetails.css'
@@ -12,7 +13,7 @@ const PokemonDetails = (props) => {
   
   useEffect(() => {
 
-    axios.get(`http://localhost:3001/pokemons/${idPokemon}`)
+    axios.get(`${URL_GET_POKEMON_BY_ID}` + idPokemon)
       .then(({ data }) =>{
         setPokemon(data)
       })

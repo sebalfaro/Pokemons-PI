@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
-import pokeball from '../../assets/images/pokeball.png'
 import './LandingPage.css'
 
 const LandingPage = () => {

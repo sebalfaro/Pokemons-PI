@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { URL_GET_ALL_POKEMONS, URL_GET_POKEMON_BY_NAME, URL_GET_POKEMON_BY_ID, URL_GET_TYPES, URL_POST_POKEMON } from '../../constants/routes';
 
 export const GET_POKEMONS = 'GET_POKEMONS'
 export const SORT_BY_NAME = 'SORT_BY_NAME'
@@ -13,7 +14,7 @@ export const DELETE_ADDED_POKEMONS = 'DELETE_ADDED_POKEMONS'
 export const getAllPokemons = ()=>{
   // console.log('getAll dispachado');
   return async function (dispatch) {
-    return (fetch('http://localhost:3001/pokemons')
+    return (fetch(URL_GET_ALL_POKEMONS)
     .then(response => response.json())
     .then(json =>{
       let filterPokemons = json.filter(e => e !== null)
@@ -22,14 +23,14 @@ export const getAllPokemons = ()=>{
     })
     .then(json => dispatch({type:GET_POKEMONS, payload: json})))
     .catch((error)=>{
-      console.log(error);
+      throw error
     })
   };
 }
 
 export const getPokemonByName = (name)=>{
   return async function (dispatch) {
-    return (fetch(`http://localhost:3001/pokemons?name=${name}`)
+    return (fetch(URL_GET_POKEMON_BY_NAME + name)
     .then(response => response.json())
     .then(json => dispatch({type:GET_POKEMONS, payload: json})))
     .catch((error)=>{
@@ -81,7 +82,7 @@ export const resetOrder = ()=>{
 export const getTypes = ()=>{
 
   return async function (dispatch) {
-    return (fetch(`http://localhost:3001/types`)
+    return (fetch(URL_GET_TYPES)
     .then(response => response.json())
     .then(json => dispatch({type: GET_TYPES , payload: json})))
     .catch((error)=>{
@@ -107,7 +108,7 @@ export const postPokemon = (data)=>{
   
   return async function () {
     try {
-      const response = axios.post(`http://localhost:3001/pokemons`, data)
+      const response = axios.post(`${URL_POST_POKEMON}`, data)
       return response;
     } catch (error) {
       throw error
