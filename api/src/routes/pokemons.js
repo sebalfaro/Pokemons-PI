@@ -22,9 +22,8 @@ router.get('/', async function(req, res, next){
       const response = await getAllPokemons();
       return res.status(201).send(response);
     } catch (error) {
-      console.log(error);
       // next(error)
-      // res.status(400).send(error);
+      res.status(400).send(error);
     }
   }
   

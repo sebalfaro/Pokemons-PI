@@ -121,7 +121,7 @@ const getAllPokemonsByName = async(name)=>{
 
     return pokemon
   } catch (error) {
-    throw ({error: "The pokemon doesn't exist"})
+    throw ({error: "There is no pokemon with this name"})
   }
 
 }
