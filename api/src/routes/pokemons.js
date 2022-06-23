@@ -1,10 +1,5 @@
-const { default: axios } = require('axios');
 const router = require('express').Router();
-const { Pokemons, Types } = require('../db');
 const { getAllPokemons, postPokemon, getPokemonById, getAllPokemonsByName } = require('../controllers');
-const { response } = require('express');
-
-
 
 router.get('/', async function(req, res, next){
 
