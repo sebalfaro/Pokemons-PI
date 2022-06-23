@@ -11,6 +11,7 @@ const SearchBar = () => {
   const [ search, setSearch] = useState('')
   const dispatch = useDispatch()
 
+
   useEffect(() => {
   
     return () => {
@@ -21,7 +22,12 @@ const SearchBar = () => {
 
   const onSubmit =(e)=>{
     e.preventDefault()
-    dispatch(getPokemonByName(search))
+    if(!search){
+      alert('Input the pokemon name!')
+    } else{
+      dispatch(getPokemonByName(search))
+    }
+
   }
   const onInputChange =(e)=>{
     e.preventDefault()

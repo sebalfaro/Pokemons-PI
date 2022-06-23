@@ -30,6 +30,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_POKEMON_BY_NAME:
+      console.log('payload ', payload);
       return {
         ...state,
         filteredPokemons: payload,

@@ -34,7 +34,8 @@ export const getPokemonByName = (name)=>{
     .then(response => response.json())
     .then(json => dispatch({type:GET_POKEMON_BY_NAME, payload: json})))
     .catch((error)=>{
-      throw error
+      console.log('error ', error);
+      // throw error
     })
   };
 }

@@ -1,7 +1,7 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from "react";
-import { getAllPokemons, resetOrder } from "../../redux/actions/actions";
+import { getAllPokemons } from "../../redux/actions/actions";
 import PokemonCard from "../PokemonCard/PokemonCard";
 import Paginado from '../Paginado/Paginado';
 import Spinner from '../Spinner/Spinner';
@@ -16,7 +16,9 @@ const PokemonsSlider = () => {
   const [pokemonsPerPage, setPokemonsPerPage] = useState(12)
   const indexOfLastPokemon = currentPage * pokemonsPerPage
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage
-  const currentPokemons = allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon)
+  const currentPokemons = pokemons.error ? null : allPokemons.slice(indexOfFirstPokemon, indexOfLastPokemon)
+
+  // console.log('Respuesta', pokemons);
 
   const paginado = (pageNumber)=>{
     setCurrentPage(pageNumber)
@@ -24,26 +26,72 @@ const PokemonsSlider = () => {
 
   useEffect(() => {
     dispatch(getAllPokemons())
+
   }, []);
   
   return (
-    <section className='pokemonslider_box'>
-      <div className='pokemonslider_page'>
+
+     <section className='pokemonslider_box'>
       {
-        pokemons.length > 0
-          ?currentPokemons.map((el) => {
-              if(!el){
-                console.log('un pokemon es null')
-                return null
-              } else {
-                return <PokemonCard img={el.img} name={el.name} types={el.types} key={el.id} id={el.id}/>;
-              }
-            })
-          : <Spinner /> 
+
+        pokemons.error
+          ? <h3 className='pokemonslider_error'>{pokemons.error}</h3>
+          : (
+            <>
+               <div className='pokemonslider_page'>
+                  {
+                  pokemons.length > 0
+                    ?currentPokemons.map((el) => {
+                        if(!el){
+                          console.log('un pokemon es null')
+                          return null
+                        } else {
+                          return <PokemonCard img={el.img} name={el.name} types={el.types} key={el.id} id={el.id}/>;
+                        }
+                      })
+                    : <Spinner /> 
+                  }
+       
+                  </div>
+                <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado}/>
+            </>
+          )
       }
-      </div>
-      <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado}/>
     </section>
+    //   <div className='pokemonslider_page'>
+    //   {
+    //     pokemons.length > 0
+    //       ?currentPokemons.map((el) => {
+    //           if(!el){
+    //             console.log('un pokemon es null')
+    //             return null
+    //           } else {
+    //             return <PokemonCard img={el.img} name={el.name} types={el.types} key={el.id} id={el.id}/>;
+    //           }
+    //         })
+    //       : <Spinner /> 
+    //   }
+    //   </div>
+    //   <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado}/>
+    // </section>
+    
+    // <section className='pokemonslider_box'>
+    //   <div className='pokemonslider_page'>
+    //   {
+    //     pokemons.length > 0
+    //       ?currentPokemons.map((el) => {
+    //           if(!el){
+    //             console.log('un pokemon es null')
+    //             return null
+    //           } else {
+    //             return <PokemonCard img={el.img} name={el.name} types={el.types} key={el.id} id={el.id}/>;
+    //           }
+    //         })
+    //       : <Spinner /> 
+    //   }
+    //   </div>
+    //   <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado}/>
+    // </section>
   );
 };
 
