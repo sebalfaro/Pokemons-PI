@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Pokemons } = require('../db');
 const { getAllPokemons, postPokemon, getPokemonById, getAllPokemonsByName } = require('../controllers');
 
 router.get('/', async function(req, res, next){
@@ -24,7 +25,6 @@ router.get('/', async function(req, res, next){
   
 })
 
-
 router.get('/:idPokemon', async function (req, res, next){
   const { idPokemon } = req.params;
 
@@ -47,6 +47,23 @@ router.post('/', async function(req, res, next){
     // next(error);
     res.status(400).send(error);
   }
+})
+
+router.delete('/', async function(req, res, next){
+  const { name } = req.body
+
+  try {
+    const response = await Pokemons.destroy({
+      where: {
+        name: name,
+      },
+    });
+    return res.sendStatus(201).send(response);
+  } catch (error) {
+    // next(error)
+    res.status(400).send(error);
+  }
+
 })
 
 
