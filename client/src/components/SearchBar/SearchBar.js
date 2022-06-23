@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getPokemonByName } from "../../redux/actions/actions";
+import { getPokemonByName, resetOrder } from "../../redux/actions/actions";
 import './SearchBar.css'
 
 const SearchBar = () => {
@@ -11,6 +11,13 @@ const SearchBar = () => {
   const [ search, setSearch] = useState('')
   const dispatch = useDispatch()
 
+  useEffect(() => {
+  
+    return () => {
+      dispatch(resetOrder())
+    };
+  }, []);
+  
 
   const onSubmit =(e)=>{
     e.preventDefault()

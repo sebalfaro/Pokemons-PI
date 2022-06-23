@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL_GET_ALL_POKEMONS, URL_GET_POKEMON_BY_NAME, URL_GET_POKEMON_BY_ID, URL_GET_TYPES, URL_POST_POKEMON } from '../../constants/routes';
+import { URL_GET_ALL_POKEMONS, URL_GET_POKEMON_BY_NAME, URL_GET_TYPES, URL_POST_POKEMON } from '../../constants/routes';
 
 export const GET_POKEMONS = 'GET_POKEMONS'
 export const SORT_BY_NAME = 'SORT_BY_NAME'
@@ -21,7 +21,7 @@ export const getAllPokemons = ()=>{
       // console.log('getAll data dispachada ', json);
       return filterPokemons
     })
-    .then(json => dispatch({type:GET_POKEMON_BY_NAME, payload: json})))
+    .then(json => dispatch({type:GET_POKEMONS, payload: json})))
     .catch((error)=>{
       throw error
     })
@@ -34,7 +34,7 @@ export const getPokemonByName = (name)=>{
     .then(response => response.json())
     .then(json => dispatch({type:GET_POKEMON_BY_NAME, payload: json})))
     .catch((error)=>{
-      console.log(error);
+      throw error
     })
   };
 }

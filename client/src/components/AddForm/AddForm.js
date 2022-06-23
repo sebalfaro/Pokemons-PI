@@ -2,50 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addPokemon, deleteAddedPokemons, getTypes, postPokemon } from "../../redux/actions/actions";
-import { expressions } from "../../constants/expressions";
+import { validateTest } from "../../tools/validateTest";
 import { useHistory } from 'react-router'
 import Spinner from '../Spinner/Spinner'
 import './AddForm.css'
-
-const validateTest = (input,)=>{
-  
-  let error = {}
-  const { name, number, img } = expressions;
-  const numberErrorMessage = `This value must be a 1 to 1000 number`;
-
-  if(!input.name || !name.test(input.name)){
-    error.name = 'This camp is required: only a-z, A-Z, 0-9, -, _ are accepted'
-  } 
-  if(!input.hp || !number.test(input.hp)){
-    error.hp = numberErrorMessage
-  }
-  if(!input.attack || !number.test(input.attack)){
-    error.attack = numberErrorMessage
-  }
-  if(!input.defense || !number.test(input.defense)){
-    error.defense = numberErrorMessage
-  }
-  if(!input.speed || !number.test(input.speed)){
-    error.speed = numberErrorMessage
-  }
-  if(!input.height || !number.test(input.height)){
-    error.height = numberErrorMessage
-  }
-  if(!input.weight || !number.test(input.weight)){
-    error.weight = numberErrorMessage
-  }
-  if(!input.img || !img.test(input.img)){
-    error.img = 'This camp is required: it must be an URL adress'
-  }
-  if (input.types.length === 0){
-    error.types = "Pokemons need have a type (max 2 types per pokemon)"
-  }
-  if(input.types.length > 2 ){
-    error.types = "Pokemons need have a type (max 2 types per pokemon)"
-  }
-
-  return error
-}
 
 
 const AddForm = () => {
@@ -64,17 +24,7 @@ const AddForm = () => {
 
   let types = useSelector((state)=> state.types)
   let pokemonsAdded = useSelector((state)=> state.pokemonsAdded)
-  const [pokemon, setPokemon] = useState({ 
-    name: '',
-    hp: '',
-    attack: '',
-    defense: '',
-    speed: '',
-    height: '',
-    weight: '',
-    img: '',
-    types: []
-  })
+  const [pokemon, setPokemon] = useState(pokemonTemplate)
   const [error, setError] = useState([])
   const dispatch = useDispatch()
   const history = useHistory()
@@ -121,24 +71,23 @@ const AddForm = () => {
   }
 
   const onSubmit = (e)=>{
-    
-    if(allDone){
-      
-      if(pokemonsAdded.length === 0){
+
+    if(pokemonsAdded.length === 0 && allDone){
         dispatch(postPokemon(pokemon))
         alert("Your pokemon have been created succesfully");
         history.push('/pokemons')
-      } else {
-        if(Object.keys(pokemon) === 9){
-          dispatch(postPokemon(pokemon))
-        }
+    } else if(allDone && pokemonsAdded.length > 0){
+        dispatch(postPokemon(pokemon))
         pokemonsAdded.map(el => dispatch(postPokemon(el)))
         alert("Your pokemons have been created succesfully");
         history.push('/pokemons')
-      }
-    } else{
-      e.preventDefault()
-      alert('the pokemon couldn´t be created, try again!')
+    } else {
+        e.preventDefault()
+        if(pokemonsAdded.length === 0){
+          alert(`the pokemon couldn't be created, try again!`)
+        } else {
+          alert(`the pokemon couldn't be created, try again!`)
+        }
     }
   }  
 
@@ -163,13 +112,11 @@ const AddForm = () => {
 
   return (
     <div className="addform_box">
-      {/* <h2>Add Your Pokemon!</h2> */}
       <form onSubmit={onSubmit}>
         <div className="addform_entry_box">
           <div className="addform_data_box">
             <div className="addform_data_input_box">
               <label htmlFor="">Name</label>
-              {/* <br  */}
               <input
                 name="name"
                 type="text"
@@ -294,7 +241,7 @@ const AddForm = () => {
           <input
             type="button"
             onClick={saveHandler}
-            value="Save and create other pokemon"
+            value="Add to queue and set other pokemons"
             disabled={display}
           />
           <br />
