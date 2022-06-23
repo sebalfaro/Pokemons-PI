@@ -20,8 +20,8 @@ const AddedPokemonsCard = ({name, img, hp, id, attack, defense, speed, height, w
         <p><b>Weight: </b>{weight}</p>
         <p><b>Types: </b>
         {types &&
-          types.map(({ id, type }) => {
-            return <span key={'p_' + id}>{type} </span>
+          types.map(({ type }) => {
+            return <span key={'cardAdded_id' + type}>{type} </span>
           })}
         </p>
         </div>

@@ -31,6 +31,9 @@ const AddForm = () => {
   let display = pokemonsAdded.length ||  Object.keys(pokemon).length === 9 ? false : true
   let allDone = Object.keys(error).length === 0 && Object.keys(pokemon).length === 9 && pokemon.types.length > 0 ? true : false 
 
+  console.log('error', error);
+  console.log('pokemon', pokemon);
+
   useEffect(() => {
     dispatch(getTypes())
   }, [dispatch]);
@@ -76,6 +79,14 @@ const AddForm = () => {
         dispatch(postPokemon(pokemon))
         alert("Your pokemon have been created succesfully");
         history.push('/pokemons')
+    } else if(pokemonsAdded.length >= 1){
+        pokemonsAdded.map(el => dispatch(postPokemon(el)))
+        history.push('/pokemons') 
+        if(pokemonsAdded.length === 1){
+          alert("Pokemon in queue have been created succesfully");
+        } else if (pokemonsAdded.length > 1){
+          alert("Pokemons in queue have been created succesfully");
+        }
     } else if(allDone && pokemonsAdded.length > 0){
         dispatch(postPokemon(pokemon))
         pokemonsAdded.map(el => dispatch(postPokemon(el)))
@@ -98,6 +109,10 @@ const AddForm = () => {
         ...pokemon,
         types: stateFiltered,
       })
+      setError(validateTest({
+        ...pokemon,
+        [e.target.name]: e.target.value,
+      }))
     } else{
       setPokemon({
         ...pokemon,
